@@ -8,145 +8,82 @@
   src: url(../fonts/GillSans.ttc);
 }
 
-body {
-  margin: 0;
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
 }
 
-footer {
-  font-family: Gill Sans;
-  text-align: center;
-  width: 100%;
-  height: 1.4vw;
-  bottom: 0;
-  position: absolute;
+body {
+  margin: 0;
+  font-family: Calibri;
 }
 
 .header {
-  font-family: Gill Sans;
-  font-size: 16dp;
-  display: -ms-grid;
-  display: grid;
+  font-size: 18px;
   background-color: #002d58;
   color: white;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
 }
 
-.header .headerText {
-  padding-left: 10vw;
+.headerText {
+  display: inline-block;
+  margin: 10px 150px;
 }
 
-.header .logInContainer {
-  -ms-grid-column-align: right;
-      justify-self: right;
-  padding-right: 10vw;
-}
-
-.header span {
-  margin-left: 1vw;
+.loginContainer {
+  float: right;
+  margin: 10px 150px;
 }
 
 .content {
-  height: 95vh;
-  position: relative;
-  background: #002d58;
-  color: white;
-  font-family: Gill Sans;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 40% 60%;
-      grid-template-rows: 40% 60%;
-}
-
-.content:before {
-  content: "";
-  position: absolute;
-  top: 55%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-}
-
-#formHeader {
   text-align: center;
-  padding-top: 5vh;
 }
 
-#ddlHeader {
-  -ms-grid-row: 1;
+.contentHeader h1 {
+  margin-top: 50px;
+  font-size: 48px;
+}
+
+.contentForm {
+  display: -ms-inline-grid;
+  display: inline-grid;
+  -ms-grid-columns: 400px 200px 200px;
+      grid-template-columns: 400px 200px 200px;
+  -ms-grid-rows: auto auto auto auto;
+      grid-template-rows: auto auto auto auto;
+  grid-column-gap: 50px;
+  width: 1000px;
+  height: 400px;
+  border: 2px groove;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-items: start;
+}
+
+.contentForm select {
+  width: 200px;
+}
+
+.contentForm .formHeader {
+  -ms-grid-column-align: left;
+      justify-self: left;
+  font-size: 20px;
   -ms-grid-column: 1;
-  grid-area: header;
-  padding-top: 1vw;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / 3;
 }
 
-#planeContainer {
-  -ms-grid-row: 1;
+.contentForm .formToContainer {
   -ms-grid-column: 2;
-  grid-area: pic;
+  -ms-grid-column-span: 2;
+  grid-column: 2 / 4;
+}
+
+.contentForm .formSubmitContainer {
+  -ms-grid-column-align: end;
       justify-self: end;
-  padding-right: 5vw;
-}
-
-#fromDDL {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: from;
-}
-
-#toDDL {
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: to;
-}
-
-#departDDL {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: depart;
-}
-
-.ddlDetails {
-  -ms-grid-row: 3;
-  -ms-grid-column: 2;
-  grid-area: detail;
-}
-
-#dummy {
-  -ms-grid-row: 4;
-  -ms-grid-column: 1;
-  grid-area: dummy;
-}
-
-#buttonContainer {
-  -ms-grid-row: 4;
-  -ms-grid-column: 2;
-  grid-area: button;
-      justify-self: end;
-  padding-right: 5vw;
-}
-
-.formContainer {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 5.5vw auto auto auto;
-      grid-template-rows: 5.5vw auto auto auto;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: "header pic" "from to" "depart detail" "dummy button";
-  position: relative;
-  width: 70vw;
-  height: 27vw;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 grey;
-          box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 grey;
-  background: white;
-  color: black;
-  -ms-grid-column-align: center;
-      justify-self: center;
-}
-
-.formContainer div {
-  padding-left: 2vw;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 1;
+  grid-column: 3 / 4;
 }
 /*# sourceMappingURL=style.css.map */
