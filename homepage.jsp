@@ -37,8 +37,8 @@
                     From
                     <br>
                     <select name="from" id="from">
-                        <option value="a">a</option>
-                        <option value="b">b</option>
+                        <option value="0">a</option>
+                        <option value="1">b</option>
                     </select>
                 </div>
 
@@ -46,8 +46,8 @@
                     To
                     <br>
                     <select name="to" id="to">
-                        <option value="a">a</option>
-                        <option value="b">b</option>
+                        <option value="0">a</option>
+                        <option value="1">b</option>
                     </select>
                 </div>
 
@@ -55,8 +55,8 @@
                     Departure Date
                     <br>
                     <select name="depart" id="depart">
-                        <option value="a">a</option>
-                        <option value="b">b</option>
+                        <option value="0">a</option>
+                        <option value="1">b</option>
                     </select>
                 </div>
 
@@ -64,8 +64,8 @@
                     Passengers
                     <br>
                     <select name="passengers" id="passengers">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
+                        <option value="0">1</option>
+                        <option value="1">2</option>
                     </select>
                 </div>
 
@@ -73,8 +73,8 @@
                     Cabin Class
                     <br>
                     <select name="cabinClass" id="cabinClass">
-                        <option value="a">a</option>
-                        <option value="b">b</option>
+                        <option value="0">a</option>
+                        <option value="1">b</option>
                     </select>
                 </div>
 
@@ -84,6 +84,8 @@
             </div>
         </form>
     </div>
+
+    <div class="footer">Copyright &copy; 2018 TravelPortal | User Online: 0</div>
     
 </body>
 </html>

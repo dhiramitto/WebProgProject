@@ -86,4 +86,12 @@ body {
   -ms-grid-column-span: 1;
   grid-column: 3 / 4;
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
 /*# sourceMappingURL=style.css.map */
