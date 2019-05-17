@@ -1,0 +1,157 @@
+@font-face {
+  font-family: Calibri;
+  src: url(../fonts/Calibri.ttf);
+}
+
+@font-face {
+  font-family: Gill Sans;
+  src: url(../fonts/GillSans.ttc);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
+}
+
+html {
+  font-family: Calibri;
+}
+
+html a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html body {
+  margin: 0;
+}
+
+.header {
+  font-size: 18px;
+  background-color: #002d58;
+  color: white;
+}
+
+.headerText {
+  display: inline-block;
+  margin: 10px 150px;
+}
+
+.loginContainer {
+  float: right;
+  margin: 10px 150px;
+}
+
+.content {
+  text-align: center;
+}
+
+.contentHeader {
+  background-color: #002d58;
+  color: white;
+}
+
+.contentHeader #contentHeaderText {
+  font-size: 52px;
+  padding-top: 50px;
+  margin-bottom: 50px;
+}
+
+hr {
+  color: #002d58;
+}
+
+select {
+  width: 100%;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.contentForm {
+  padding: 30px;
+  margin: 25px 150px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  grid-column-gap: 30px;
+}
+
+.contentForm .formHeader {
+  text-align: left;
+  font-size: 28px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.contentForm .formPic {
+  color: white;
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.contentForm .formSelect {
+  margin: 10px 0;
+}
+
+.contentForm .formText {
+  text-align: left;
+  font-size: 18px;
+}
+
+.contentForm .formLeft {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+  margin-top: 45px;
+}
+
+.contentForm .formRight {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+  margin-top: 45px;
+}
+
+.contentForm .formRight .twoCol {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+}
+
+.contentForm .button {
+  -ms-grid-column-align: right;
+      justify-self: right;
+  width: -webkit-max-content;
+}
+
+.contentForm #searchBtn {
+  padding: 5px;
+  background-color: #002d58;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  border: 0;
+  margin-top: 20px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+/*# sourceMappingURL=homePageStyle.css.map */

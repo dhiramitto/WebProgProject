@@ -1,0 +1,112 @@
+@font-face {
+  font-family: Calibri;
+  src: url(../fonts/Calibri.ttf);
+}
+
+@font-face {
+  font-family: Gill Sans;
+  src: url(../fonts/GillSans.ttc);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
+}
+
+html {
+  font-family: Calibri;
+}
+
+html a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html body {
+  margin: 0;
+}
+
+.content {
+  text-align: center;
+}
+
+.contentHeader {
+  background-color: #002d58;
+  color: white;
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.contentHeader #contentHeaderText {
+  font-size: 52px;
+}
+
+.contentReg {
+  padding: 30px;
+  margin: 10px 500px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 15px;
+}
+
+.contentReg .regText {
+  text-align: left;
+  font-size: 18px;
+}
+
+.contentReg .checkboxContainer {
+  text-align: left;
+  font-size: 18px;
+}
+
+.contentReg .checkboxContainer #rememberMe {
+  margin-right: 5px;
+}
+
+.contentReg .regField input {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.contentReg .radio {
+  text-align: left;
+}
+
+.contentReg #submitBtn {
+  background-color: #002d58;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  border: 0;
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.contentSignin {
+  color: gray;
+  margin-bottom: 50px;
+}
+
+.contentSignin a {
+  font-weight: bolder;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 5px;
+}
+/*# sourceMappingURL=registerStyle.css.map */

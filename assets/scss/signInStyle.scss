@@ -1,0 +1,94 @@
+@import "font.scss";
+@import "color.scss";
+
+html{
+    font-family: Calibri;
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    body{
+        margin: 0;
+    }
+}
+
+.content{
+    text-align: center;
+}
+
+.contentHeader{
+    background-color: $main-color;
+    color: white; 
+    padding-top: 175px;
+    padding-bottom: 100px;
+
+    #contentHeaderText{
+        font-size: 52px;
+    }
+}
+
+.contentLogin{
+    padding: 30px;
+    margin: 25px 500px;
+    border-radius: 5px;
+    box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 15px;
+
+    .loginText{
+        text-align: left;
+        font-size: 18px;
+    }
+
+    .checkboxContainer{
+        text-align: left;
+        font-size: 18px;
+        #rememberMe{
+            margin-right: 5px;
+        }
+    }
+
+    .loginField{
+        input{
+            width: 100%;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 18px;
+        }
+    }
+
+
+    #submitBtn{
+        background-color: $main-color;
+        color: white;
+        border-radius: 5px;
+        font-family: Calibri;
+        font-size: 16px;
+        border: 0;
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px 5px;
+    }
+}
+
+.contentSignup{
+    color: gray;
+    a{
+        font-weight: bolder;
+    }
+}
+
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 15px;
+}
