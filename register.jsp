@@ -40,7 +40,7 @@
                     <div class="regText">Gender</div>
                     <div class="radio">
                         <input type="radio" name="gender" id="gender" value="Male"> Male
-                        <input type="radio" name="gender" id="gender" value="Female" id="radioFemale"> Female
+                        <input type="radio" name="gender" id="gender" value="Female"> Female
                     </div>
                 </div>
                 

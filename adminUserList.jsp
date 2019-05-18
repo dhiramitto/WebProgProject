@@ -9,11 +9,7 @@
 <body>
     <div class="header">
         <div class="headerMenu">
-            <div> <a href="">Home</a> </div>
-            <div> <a href="">Users</a> </div>
-            <div> <a href="">Cities</a> </div>
-            <div> <a href="">Tickets</a> </div>
-            <div> <a href="">Transactions</a> </div>
+            <%@include file="includes/adminPages/adminHeaderMenu.jsp" %>
         </div>
         <div class="usernameDisplay">Pablo Picasso</div>
     </div>
