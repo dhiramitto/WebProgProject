@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="assets/css/adminInsertUserStyle.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/adminEditUserStyle.css">
     <title>Insert User</title>
 </head>
 <body>
@@ -17,25 +17,25 @@
     
     <div class="content">
         <div class="contentHeader">
-            <div id="contentHeaderText">Insert User</div>
+            <div id="contentHeaderText">Update User</div>
             <br>
-            Insert new user
+            Update active user
         </div>
 
         <form action="">
-            <div class="contentInsertUser">
+            <div class="contentEditUser">
                 <div class="componentContainer">
-                    <div class="insertText">Name</div>
-                    <div class="insertField"><input type="text" name="insertName" id="insertName"></div>
+                    <div class="editText">Name</div>
+                    <div class="editField"><input type="text" name="editName" id="editName"></div>
                 </div>
 
                 <div class="componentContainer">
-                    <div class="insertText">Email</div>
-                    <div class="insertField"><input type="text" name="insertEmail" id="insertEmail"></div>
+                    <div class="editText">Email</div>
+                    <div class="editField"><input type="text" name="editEmail" id="editEmail"></div>
                 </div>
 
                 <div class="componentContainer">
-                    <div class="insertText">Gender</div>
+                    <div class="editText">Gender</div>
                     <div class="radio">
                         <input type="radio" name="gender" id="gender" value="Male"> Male
                         <input type="radio" name="gender" id="gender" value="Female"> Female
@@ -43,12 +43,12 @@
                 </div>
 
                 <div class="componentContainer">
-                    <div class="insertText">Password</div>
-                    <div class="insertField"><input type="password" name="insertPassword" id="insertPassword"></div>
+                    <div class="editText">Password</div>
+                    <div class="editField"><input type="password" name="editPassword" id="editPassword"></div>
                 </div>
 
                 <div class="button">
-                    <input type="submit" value="Add User" id="insertBtn">
+                    <input type="submit" value="Update User" id="editBtn">
                 </div>
             </div>
         </form>
