@@ -1,0 +1,160 @@
+@font-face {
+  font-family: Calibri;
+  src: url(../fonts/Calibri.ttf);
+}
+
+@font-face {
+  font-family: Gill Sans;
+  src: url(../fonts/GillSans.ttc);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
+}
+
+html {
+  font-family: Calibri;
+}
+
+html a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html body {
+  margin: 0;
+}
+
+.header {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  font-size: 18px;
+  background-color: #002d58;
+  color: white;
+  padding: 10px 0;
+}
+
+.headerMenu {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100px 100px 100px 100px 100px 100px;
+      grid-template-columns: 100px 100px 100px 100px 100px 100px;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-column-gap: 15px;
+  margin-left: 150px;
+}
+
+.usernameDisplay {
+  -ms-grid-column-align: right;
+      justify-self: right;
+  margin-right: 150px;
+}
+
+.contentHeader {
+  padding-left: 150px;
+  padding-bottom: 50px;
+  background-color: #002d58;
+  color: white;
+}
+
+.contentHeader #contentHeaderText {
+  font-size: 52px;
+  padding-top: 50px;
+  margin-bottom: 50px;
+}
+
+.contentInsertTicket {
+  padding: 30px;
+  margin: 25px 150px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 15px;
+}
+
+.contentInsertTicket .insertText {
+  text-align: left;
+  font-size: 18px;
+}
+
+.contentInsertTicket #airlineContainer {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / 3;
+}
+
+.contentInsertTicket select {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.contentInsertTicket .inner {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-row-gap: 15px;
+  grid-column-gap: 30px;
+}
+
+.contentInsertTicket .formLeft {
+  display: -ms-grid;
+  display: grid;
+  grid-row-gap: 15px;
+}
+
+.contentInsertTicket .formRight {
+  display: -ms-grid;
+  display: grid;
+  grid-row-gap: 15px;
+}
+
+.contentInsertTicket .insertField input {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.contentInsertTicket .radio {
+  text-align: left;
+}
+
+.contentInsertTicket .button {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.contentInsertTicket .button #insertBtn {
+  background-color: #002d58;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  border: 0;
+  margin-top: 20px;
+  padding: 10px 5px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 15px;
+}
+/*# sourceMappingURL=adminInsertTicketStyle.css.map */
