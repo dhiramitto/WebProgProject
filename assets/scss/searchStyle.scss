@@ -1,0 +1,89 @@
+@import "font.scss";
+@import "color.scss";
+
+html{
+    font-family: Calibri;
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    body{
+        margin: 0;
+    }
+}
+
+.header{
+    font-size: 18px;
+    background-color: $main-color;
+    color: white;
+}
+
+.home{
+    display: inline-block;
+    margin: 10px 150px;
+}
+
+.loginContainer{
+    float: right;
+    margin: 10px 150px;
+}
+
+.content{
+    text-align: center;
+}
+
+.searchResult{
+    padding: 30px;
+    margin: 25px 150px;
+    border-radius: 5px;
+    box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+    
+    table{
+        width: 100%;
+
+        th{
+            text-align: left;
+        }
+        
+        .buttonContainer{
+            text-align: center;    
+        }
+    }
+
+    #purchaseBtn{
+        cursor: pointer;
+        height: 50px;
+        width: 50px;
+        padding: 5px;
+        background-color: $main-color;
+        color: white;
+        border-radius: 5px;
+        font-family: Calibri;
+        font-size: 16px;
+        border: 0;
+    }
+
+    // atur pagination
+    .pagination{
+        table{
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 10px;
+
+            td{
+                border-radius: 5px;
+                box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+            }
+        }
+    }
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

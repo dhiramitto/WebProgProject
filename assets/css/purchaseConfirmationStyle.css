@@ -1,0 +1,74 @@
+@font-face {
+  font-family: Calibri;
+  src: url(../fonts/Calibri.ttf);
+}
+
+@font-face {
+  font-family: Gill Sans;
+  src: url(../fonts/GillSans.ttc);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
+}
+
+html {
+  font-family: Calibri;
+}
+
+html a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html body {
+  margin: 0;
+}
+
+.header {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  font-size: 18px;
+  background-color: #002d58;
+  color: white;
+  padding: 10px 0;
+}
+
+.usernameDisplay {
+  -ms-grid-column-align: right;
+      justify-self: right;
+  margin-right: 150px;
+}
+
+.home {
+  display: inline-block;
+  margin: 10px 150px;
+}
+
+.contentHeader {
+  padding-left: 150px;
+  padding-bottom: 50px;
+  background-color: #002d58;
+  color: white;
+}
+
+.contentHeader #contentHeaderText {
+  font-size: 52px;
+  padding-top: 50px;
+  margin-bottom: 50px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 15px;
+}
+/*# sourceMappingURL=purchaseConfirmationStyle.css.map */

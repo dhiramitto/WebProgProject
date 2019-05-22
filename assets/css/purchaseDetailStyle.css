@@ -1,0 +1,98 @@
+@font-face {
+  font-family: Calibri;
+  src: url(../fonts/Calibri.ttf);
+}
+
+@font-face {
+  font-family: Gill Sans;
+  src: url(../fonts/GillSans.ttc);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../fonts/Montserrat-Black.ttf);
+}
+
+html {
+  font-family: Calibri;
+}
+
+html a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html body {
+  margin: 0;
+}
+
+.header {
+  font-size: 18px;
+  background-color: #002d58;
+  color: white;
+}
+
+.home {
+  display: inline-block;
+  margin: 10px 150px;
+}
+
+.headerContainer {
+  float: right;
+  margin: 10px 150px;
+}
+
+.formPurchase {
+  padding: 30px;
+  margin: 25px 150px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+}
+
+.formPurchase .formInput {
+  display: -ms-grid;
+  display: grid;
+  grid-column-gap: 20px;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+}
+
+.formPurchase .detailText {
+  text-align: left;
+  font-size: 18px;
+}
+
+.formPurchase input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.formPurchase select {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.formPurchase button {
+  padding: 5px;
+  background-color: #002d58;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  border: 0;
+  margin-bottom: 10px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+/*# sourceMappingURL=purchaseDetailStyle.css.map */

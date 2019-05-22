@@ -1,0 +1,106 @@
+@import "font.scss";
+@import "color.scss";
+
+html{
+    font-family: Calibri;
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    body{
+        margin: 0;
+    }
+}
+
+.header{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+
+    font-size: 18px;
+    background-color: $main-color;
+    color: white;
+    padding: 10px 0;
+}
+
+.headerMenu{
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+    grid-template-rows: auto;
+    grid-column-gap: 15px;
+
+    margin-left: 150px;
+}
+
+.usernameDisplay{
+    justify-self: right;
+    margin-right: 150px;
+}
+
+.contentHeader{
+    padding-left: 150px;
+    padding-bottom: 50px;
+    background-color: $main-color;
+    color: white;
+
+    #contentHeaderText{
+        font-size: 52px;
+        padding-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+.contentTable{
+    padding: 30px;
+    margin: 25px 150px;
+    border-radius: 5px;
+    box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+
+    table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead{
+        font-weight: bold;
+    }
+
+    tr{
+        border-top: 1px solid;
+    }
+
+    .buttonContainer{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .buttons{
+            display: grid;
+            grid-template-columns: 75px 75px 75px;
+            grid-column-gap: 10px;
+            justify-content: end;
+
+            button{
+                border: 1px solid;
+                width: 75px;
+                background-color: $main-color;
+                color: white;
+                border-radius: 5px;
+                font-family: Calibri;
+                font-size: 16px;
+                border: 0;
+                padding: 10px 5px;
+            }
+        }
+    }
+}
+
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

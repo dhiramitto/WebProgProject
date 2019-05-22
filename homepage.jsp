@@ -11,6 +11,7 @@
     <div class="header">
         <div class="headerText">The easiest way to find the cheapest ticket.</div>
         <span class="logInContainer">
+            <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
             <span><a href="signIn.jsp">Sign In</a></span>
             <span><a href="register.jsp">Register</a></span>
         </span>
