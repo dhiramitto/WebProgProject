@@ -77,6 +77,7 @@ html body {
 }
 
 .contentLogin #submitBtn {
+  cursor: pointer;
   background-color: #002d58;
   color: white;
   border-radius: 5px;

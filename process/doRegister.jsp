@@ -30,20 +30,26 @@
             
             //abis itu baru masukkin ke database
             else{
-
-                String query = "INSERT INTO user (role_id, name, email, password, gender) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement stmt = con.prepareStatement(query);
+                try{
+                    String query = "INSERT INTO user (role_id, name, email, password, gender) VALUES (?, ?, ?, ?, ?)";
+                    PreparedStatement stmt = con.prepareStatement(query);
                 
-                stmt.setInt(1, 2);
-                stmt.setString(2, name);
-                stmt.setString(3, email);
-                stmt.setString(4, password);
-                stmt.setString(5, gender);
-                
-                stmt.executeUpdate();
-                
-                
-                response.sendRedirect("../signIn.jsp");
+                    stmt.setInt(1, 2);
+                    stmt.setString(2, name);
+                    stmt.setString(3, email);
+                    stmt.setString(4, password);
+                    stmt.setString(5, gender);
+                    
+                    //entah kenapa executeUpdate() nya ga jalan
+                    stmt.executeUpdate();
+                    
+                    Thread.sleep(1000);
+                    out.println("Register success!");
+                    response.sendRedirect("../signIn.jsp");
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
             }
         }
     }

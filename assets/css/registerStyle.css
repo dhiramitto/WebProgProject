@@ -81,6 +81,7 @@ html body {
 }
 
 .contentReg #submitBtn {
+  cursor: pointer;
   background-color: #002d58;
   color: white;
   border-radius: 5px;
