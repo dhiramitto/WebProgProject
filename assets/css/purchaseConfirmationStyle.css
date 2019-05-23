@@ -60,7 +60,57 @@ html body {
 .contentHeader #contentHeaderText {
   font-size: 52px;
   padding-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+.contentWrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 1fr;
+      grid-template-columns: 2fr 1fr;
+}
+
+.contentWrapper .left .passengers {
+  padding: 30px;
+  margin: 25px 150px;
+  border-radius: 5px;
+  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
+}
+
+.contentWrapper .left .passengers .passengerDetail {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
+.contentWrapper .right .userDetail {
+  margin: 25px 100px 25px 0;
+}
+
+.contentWrapper .right .userPay {
+  margin-bottom: 30px;
+}
+
+.contentWrapper .right .buttons {
+  width: 100%;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  font-size: 18px;
+  height: 50px;
+}
+
+.contentWrapper .right #payBtn {
+  background-color: #002d58;
+  margin-bottom: 10px;
+}
+
+.contentWrapper .right #cancelBtn {
+  background-color: #dc3545;
 }
 
 .footer {
