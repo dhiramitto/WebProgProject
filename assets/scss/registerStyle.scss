@@ -78,6 +78,11 @@ html{
         width: 100%;
         padding: 10px 5px;
     }
+
+    .error{
+        color: $warning-red;
+        font-size: 24px;
+    }
 }
 
 .contentSignin{

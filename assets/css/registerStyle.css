@@ -92,6 +92,11 @@ html body {
   padding: 10px 5px;
 }
 
+.contentReg .error {
+  color: #b33a3a;
+  font-size: 24px;
+}
+
 .contentSignin {
   color: gray;
   margin-bottom: 50px;

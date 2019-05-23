@@ -13,7 +13,7 @@
             <div id="contentHeaderText">Sign in to our application</div>
         </div>
 
-        <form action="">
+        <form action="process/doRegister.jsp" method="POST">
             <div class="contentReg">
                 <div class="componentContainer">
                     <div class="regText">Name</div>
@@ -42,6 +42,24 @@
                         <input type="radio" name="gender" id="gender" value="Male"> Male
                         <input type="radio" name="gender" id="gender" value="Female"> Female
                     </div>
+                </div>
+
+                <div class="error">
+                    <%
+                    String error = request.getParameter("err");
+
+                    if(error != null){
+                        if(error.equals("1")){
+                            out.println("All elements must be filled!");
+                        }
+                        else if(error.equals("2")){
+                            out.println("Confirmation password must be same with password");
+                        }
+                        else if(error.equals("3")){
+                            out.println("Please input the correct format of email");
+                        }
+                    }
+                    %>
                 </div>
                 
                 <div class="button">
