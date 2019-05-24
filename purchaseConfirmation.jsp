@@ -10,10 +10,10 @@
 
     <div class="header">
         <div class="home">
-            <a href="">Home</a>
+            <a href="homePage.jsp">Home</a>
         </div>
         
-        <%@include file = "includes/usernameDisplay.jsp" %>
+        <%@include file="includes/usernameDisplay.jsp" %>
     </div>
 
     <div class="content">

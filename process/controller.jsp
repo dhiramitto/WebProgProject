@@ -99,6 +99,13 @@
                         application.setAttribute("online", online);
 
                         session.setAttribute("name", name_db);
+
+                        if(rememberMe.equals("on")){
+                            Cookie newCookie = new Cookie("email", email);
+                            newCookie.setMaxAge(900);
+                            newCookie.setPath("/");
+                            response.addCookie(newCookie);
+                        }
                         
                         if(role_id_db == 1){
                             response.sendRedirect("../adminUserList.jsp");

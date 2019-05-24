@@ -10,11 +10,11 @@
 
     <div class="header">
         <div class="home">
-            <a href="">Home</a>
+            <a href="homePage.jsp">Home</a>
         </div>
         <span class="headerContainer">
             <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
-            <%@include file = "includes/usernameDisplay.jsp" %>
+            <%@include file="includes/usernameDisplay.jsp" %>
         </span>
     </div>
 

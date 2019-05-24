@@ -57,6 +57,22 @@
                 </div>
             </div>
         </form>
+        
+        <%-- cek cookies --%>
+        <%
+            Cookie[] cookies = request.getCookies();
+
+            String email = "";
+
+            for(int i = 0; i < cookies.length; i++){
+                if(cookies[i].getName().equals("email")){
+                    username = (String) cookies[i].getValue();
+                    break;
+                }
+            }
+
+            if(!username.equals("")) response.sendRedirect("home.jsp");
+        %>
 
         <div class="contentSignup">Don't have an account yet? <a href="register.jsp">Sign up</a> now</div>
 
