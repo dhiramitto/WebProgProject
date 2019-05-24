@@ -55,7 +55,7 @@
 
     </div>
     
-    <div class="footer">Copyright &copy; 2018 TravelPortal | User Online: 0</div>
+    <div class="footer">Copyright &copy; 2018 TravelPortal | User Online: <%= application.getAttribute("online") %></div>
     
 </body>
 </html>
