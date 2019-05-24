@@ -11,9 +11,26 @@
     <div class="header">
         <div class="headerText">The easiest way to find the cheapest ticket.</div>
         <span class="logInContainer">
-            <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
-            <span><a href="signIn.jsp">Sign In</a></span>
-            <span><a href="register.jsp">Register</a></span>
+            <%
+                String name = (String) session.getAttribute("name");
+
+                if(name == null){
+                    %>
+                    <span><a href="signIn.jsp">Sign In</a></span>
+                    <span><a href="register.jsp">Register</a></span>
+                    <%
+                }
+                else{
+                    %>
+                        <div class="usernameDisplay">
+                            <%= name %>
+                            <div class="headerMenuContent">
+                                <a href="process/doLogout.jsp">Logout</a>
+                            </div>
+                        </div>
+                    <%
+                }
+            %>
         </span>
     </div>
 
@@ -105,7 +122,7 @@
         </form>
     </div>
 
-    <div class="footer">Copyright &copy; 2018 TravelPortal | User Online: 0</div>
+    <div class="footer">Copyright &copy; 2018 TravelPortal | User Online: <% if(application.getAttribute("online") == null) out.println("0"); else out.println(application.getAttribute("online"));%></div>
     
 </body>
 </html>

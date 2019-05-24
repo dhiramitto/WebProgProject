@@ -13,7 +13,8 @@
             <div id="contentHeaderText">Sign in to our application</div>
         </div>
 
-        <form action="process/doRegister.jsp" method="POST">
+        <form action="process/controller.jsp" method="POST">
+            <input type="hidden" name="src" value="register">
             <div class="contentReg">
                 <div class="componentContainer">
                     <div class="regText">Name</div>
@@ -35,7 +36,6 @@
                     <div class="regField"><input type="password" name="regConfPassword" id="regConfPassword"></div>
                 </div>
 
-
                 <div class="componentContainer">
                     <div class="regText">Gender</div>
                     <div class="radio">
@@ -56,7 +56,7 @@
                             out.println("Confirmation password must be same with password");
                         }
                         else if(error.equals("3")){
-                            out.println("Please input the correct format of email");
+                            out.println("Invalid email format");
                         }
                     }
                     %>

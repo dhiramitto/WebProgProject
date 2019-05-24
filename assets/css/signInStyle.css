@@ -76,6 +76,11 @@ html body {
   font-size: 18px;
 }
 
+.contentLogin .error {
+  color: #b33a3a;
+  font-size: 18px;
+}
+
 .contentLogin #submitBtn {
   cursor: pointer;
   background-color: #002d58;

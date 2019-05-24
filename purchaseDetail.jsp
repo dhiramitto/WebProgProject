@@ -14,7 +14,7 @@
         </div>
         <span class="headerContainer">
             <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
-            <span>Pablo Picasso</span>
+            <%@include file = "includes/usernameDisplay.jsp" %>
         </span>
     </div>
 

@@ -62,6 +62,11 @@ html{
         }
     }
 
+    .error{
+        color: $warning-red;
+        font-size: 18px;
+    }
+
 
     #submitBtn{
         cursor: pointer;

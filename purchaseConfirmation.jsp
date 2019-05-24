@@ -12,8 +12,8 @@
         <div class="home">
             <a href="">Home</a>
         </div>
-        <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
-        <div class="usernameDisplay">Pablo Picasso</div>
+        
+        <%@include file = "includes/usernameDisplay.jsp" %>
     </div>
 
     <div class="content">

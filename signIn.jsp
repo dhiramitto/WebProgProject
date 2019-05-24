@@ -13,7 +13,8 @@
             <div id="contentHeaderText">Sign in to our application</div>
         </div>
 
-        <form action="">
+        <form action="process/controller.jsp" method="POST">
+            <input type="hidden" name="src" value="signin">
             <div class="contentLogin">
                 <div class="componentContainer">
                     <div class="loginText">Email</div>
@@ -28,6 +29,27 @@
 
                 <div class="checkboxContainer">
                     <input type="checkbox" name="rememberMe" id="rememberMe">Remember Me
+                </div>
+
+                <div class="error">
+                    <%
+                        String err = request.getParameter("err");
+
+                        if(err != null){
+                            if(err.equals("1")){
+                                out.println("All elements must be filled!");
+                            }
+                            else if(err.equals("2")){
+                                out.println("Invalid email format");
+                            }
+                            else if(err.equals("3")){
+                                out.println("Incorrect email or password");
+                            }
+                            else if(err.equals("4")){
+                                out.println("You must logged in first");
+                            }
+                        }
+                    %>
                 </div>
                 
                 <div class="button">

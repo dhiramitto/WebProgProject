@@ -11,7 +11,7 @@
         <div class="headerMenu">
             <%@include file="includes/adminPages/adminHeaderMenu.jsp" %>
         </div>
-        <div class="usernameDisplay">Pablo Picasso</div>
+        <%@include file = "includes/usernameDisplay.jsp" %>
     </div>
 
     <div class="content">

@@ -13,8 +13,7 @@
             <a href="">Home</a>
         </div>
         <span class="logInContainer">
-            <%-- nanti diganti jadi nama user dan track order kalo udh sign in --%>
-            <span>Pablo Picasso</span>
+            <%@include file = "includes/usernameDisplay.jsp" %>
         </span>
     </div>
     <%-- search result, bakal ada loop kayaknya --%>
