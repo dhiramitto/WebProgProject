@@ -25,6 +25,15 @@
                         <div class="usernameDisplay">
                             <%= name %>
                             <div class="headerMenuContent">
+                                <%
+                                    int role = (Integer) session.getAttribute("role");
+
+                                    if(role == 1){
+                                        %>
+                                            <a href="adminUserList.jsp">Dashboard</a>
+                                        <%
+                                    }
+                                %>
                                 <a href="process/doLogout.jsp">Logout</a>
                             </div>
                         </div>

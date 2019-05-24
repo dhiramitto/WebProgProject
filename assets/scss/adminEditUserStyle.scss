@@ -112,6 +112,7 @@ html{
         justify-self: end;
 
         #editBtn{
+            cursor: pointer;
             background-color: $main-color;
             color: white;
             border-radius: 5px;
@@ -121,6 +122,11 @@ html{
             margin-top: 20px;
             padding: 10px 5px;
         }
+    }
+    .error{
+        text-align: center;
+        color: $warning-red;
+        font-size: 18px;
     }
 }
 

@@ -13,8 +13,7 @@
             <div id="contentHeaderText">Sign in to our application</div>
         </div>
 
-        <form action="process/controller.jsp" method="POST">
-            <input type="hidden" name="src" value="register">
+        <form action="process/controller.jsp?src=register" method="POST">
             <div class="contentReg">
                 <div class="componentContainer">
                     <div class="regText">Name</div>
@@ -57,6 +56,9 @@
                         }
                         else if(error.equals("3")){
                             out.println("Invalid email format");
+                        }
+                        else if(error.equals("4")){
+                            out.println("Email already exists");
                         }
                     }
                     %>

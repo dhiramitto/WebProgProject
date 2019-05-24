@@ -13,7 +13,6 @@
             return false;
         }
         else return true;
-
     }
 %>
 
@@ -40,19 +39,28 @@
                     response.sendRedirect("../register.jsp?err=3");
                 }
                 else{
-                        
-                    String query = "INSERT INTO user (role_id, name, email, password, gender) VALUES (?, ?, ?, ?, ?)";
-                    PreparedStatement stmt = con.prepareStatement(query);
-                        
-                    stmt.setInt(1, 2);
-                    stmt.setString(2, name);
-                    stmt.setString(3, email);
-                    stmt.setString(4, password);
-                    stmt.setString(5, gender);
+                    //cek emailnya udh ada atau belom
+                    String cek = "SELECT * FROM user WHERE email='"+ email +"' ";
+                    ResultSet rs = st.executeQuery(cek);
+
+                    if(rs.next()){
+                        response.sendRedirect("../register.jsp?err=4");
+                    }
+                    //lalu baru masukkin ke database
+                    else{
+                        String query = "INSERT INTO user (role_id, name, email, password, gender) VALUES (?, ?, ?, ?, ?)";
+                        PreparedStatement stmt = con.prepareStatement(query);
                             
-                    stmt.executeUpdate();
-                            
-                    response.sendRedirect("../signIn.jsp");
+                        stmt.setInt(1, 2);
+                        stmt.setString(2, name);
+                        stmt.setString(3, email);
+                        stmt.setString(4, password);
+                        stmt.setString(5, gender);
+                                
+                        stmt.executeUpdate();
+                                
+                        response.sendRedirect("../signIn.jsp");
+                    }
                         
                 }
             }
@@ -99,25 +107,96 @@
                         application.setAttribute("online", online);
 
                         session.setAttribute("name", name_db);
+                        session.setAttribute("role", role_id_db); //1 admin, 2 user biasa
 
-                        if(rememberMe.equals("on")){
+                        if(rememberMe == null){
+                            if(role_id_db == 1){
+                                response.sendRedirect("../adminUserList.jsp");
+                            }
+                            else{
+                                response.sendRedirect("../homePage.jsp");
+                            }
+                        }
+
+                        else if(rememberMe.equals("on")){
                             Cookie newCookie = new Cookie("email", email);
                             newCookie.setMaxAge(900);
                             newCookie.setPath("/");
                             response.addCookie(newCookie);
+
+                            if(role_id_db == 1){
+                                response.sendRedirect("../adminUserList.jsp");
+                            }
+                            else{
+                                response.sendRedirect("../homePage.jsp");
+                            }
                         }
+                                              
                         
-                        if(role_id_db == 1){
-                            response.sendRedirect("../adminUserList.jsp");
-                        }
-                        else{
-                            response.sendRedirect("../homePage.jsp");
-                        }
                     }
                     else{
                         response.sendRedirect("../signIn.jsp?err=3");
                     }
                 }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("editUser")){
+            try{
+                
+                int id = Integer.parseInt(request.getParameter("id"));
+                String name = request.getParameter("editName");
+                String email = request.getParameter("editEmail");
+                String password = request.getParameter("editPassword");
+                String gender = request.getParameter("editGender");
+                
+                
+                if(name.equals("") || email.equals("") || password.equals("") || gender.equals("")){
+                    response.sendRedirect("../adminEditUser.jsp?err=1&id="+ id +"");
+                }
+                else if(!isEmailValid(email)){
+                    response.sendRedirect("../adminEditUser.jsp?err=2&id="+ id +"");
+                }
+                else{
+                    
+                    //edit user berdasarkan id
+                    
+                    String query = "UPDATE user SET name = ?, email = ?, password = ?, gender = ? WHERE user_id = ?";
+                    PreparedStatement stmt = con.prepareStatement(query);
+                        
+                    stmt.setString(1, name);
+                    stmt.setString(2, email);
+                    stmt.setString(3, password);
+                    stmt.setString(4, gender);
+                    stmt.setInt(5, id);
+                                
+                        
+                    stmt.executeUpdate();
+                      
+                    response.sendRedirect("../adminUserList.jsp");
+                    
+                        
+                }
+
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("deleteUser")){
+            try{
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                String query = "DELETE FROM user WHERE user_id = ?";
+                PreparedStatement stmt = con.prepareStatement(query);
+
+                stmt.setInt(1, id);
+
+                stmt.executeUpdate();
+
+                response.sendRedirect("../adminUserList.jsp");
             }
             catch(Exception e){
                 System.out.println(e);

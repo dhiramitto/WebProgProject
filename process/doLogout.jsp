@@ -11,10 +11,9 @@
 
    Cookie[] cookieS = request.getCookies();
 
-   for(int i = 0 ; i < cookieS.length; i++)
-   {
-       if(cookieS[i].getName().equals("username"))
-       {
+   for(int i = 0 ; i < cookieS.length; i++){
+
+        if(cookieS[i].getName().equals("email")){
            cookieS[i].setMaxAge(0);
            cookieS[i].setPath("/");
            response.addCookie(cookieS[i]);

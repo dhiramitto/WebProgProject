@@ -7,14 +7,27 @@
     <title>Sign In</title>
 </head>
 <body>
+    <%-- cek cookies --%>
+    <%
+        Cookie[] cookies = request.getCookies();
+
+        String emailCookie = "";
+        for(int i = 0; i < cookies.length; i++){
+            if(cookies[i].getName().equals("email")){
+                emailCookie = (String) cookies[i].getValue();
+                break;
+            }
+        }
+
+        if(!emailCookie.equals("")) response.sendRedirect("homePage.jsp");
+    %>
 
     <div class="content">
         <div class="contentHeader">
             <div id="contentHeaderText">Sign in to our application</div>
         </div>
 
-        <form action="process/controller.jsp" method="POST">
-            <input type="hidden" name="src" value="signin">
+        <form action="process/controller.jsp?src=signin" method="POST">
             <div class="contentLogin">
                 <div class="componentContainer">
                     <div class="loginText">Email</div>
@@ -57,22 +70,6 @@
                 </div>
             </div>
         </form>
-        
-        <%-- cek cookies --%>
-        <%
-            Cookie[] cookies = request.getCookies();
-
-            String email = "";
-
-            for(int i = 0; i < cookies.length; i++){
-                if(cookies[i].getName().equals("email")){
-                    username = (String) cookies[i].getValue();
-                    break;
-                }
-            }
-
-            if(!username.equals("")) response.sendRedirect("home.jsp");
-        %>
 
         <div class="contentSignup">Don't have an account yet? <a href="register.jsp">Sign up</a> now</div>
 

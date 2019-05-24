@@ -114,6 +114,26 @@ html body {
   border-top: 1px solid;
 }
 
+.contentTable button {
+  cursor: pointer;
+  border: 0;
+  padding: 15px;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  width: 75px;
+  margin-right: 10px;
+}
+
+.contentTable #editBtn {
+  background-color: #007bff;
+}
+
+.contentTable #deleteBtn {
+  background-color: #dc3545;
+}
+
 .footer {
   position: fixed;
   left: 0;
