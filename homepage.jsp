@@ -18,6 +18,8 @@
                     %>
                     <span><a href="signIn.jsp">Sign In</a></span>
                     <span><a href="register.jsp">Register</a></span>
+                    <%-- dummy dulu logout nya karena msh blm bisa handle kalo session nya abis, lgsg ke-logout --%>
+                    <a href="process/doLogout.jsp">Logout</a>
                     <%
                 }
                 else{

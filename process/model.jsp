@@ -59,4 +59,83 @@
         }
     }
 
+    class Ticket{
+        private int id;
+        private String airline;
+        private String from;
+        private String to;
+        private String departDate;
+        private int priceEco;
+        private int priceBusiness;
+        private int seat;
+
+        public Ticket(int id, String airline, String from, String to, String departDate, int priceEco, int priceBusiness, int seat){
+            this.id = id;
+            this.airline = airline;
+            this.from = from;
+            this.to = to;
+            this.departDate = departDate;
+            this.priceEco = priceEco;
+            this.priceBusiness = priceBusiness;
+            this.seat = seat;
+        }
+
+        public int getId(){
+            return id;
+        }
+
+        public String getAirline(){
+            return airline;
+        }
+
+        public String getFrom(){
+            return from;
+        }
+
+        public String getTo(){
+            return to;
+        }
+
+        public String getDepartDate(){
+            return departDate;
+        }
+
+        public int getPriceEco(){
+            return priceEco;
+        }
+
+        public int getPriceBusiness(){
+            return priceBusiness;
+        }
+
+        public int getSeat(){
+            return seat;
+        }
+    }
+
+    class Airline{
+        private String airlineName;
+
+        public Airline(String airline){
+            this.airlineName = airline;
+        }
+
+        public String getAirline(){
+            return airlineName;
+        }
+    }
+
+    class CityName{
+        private String cityName;
+
+        public CityName(String city){
+            cityName = city;
+        }
+
+        public String getCity(){
+            return cityName;
+        }
+
+    }
+
 %>

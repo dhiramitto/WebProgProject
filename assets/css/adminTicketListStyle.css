@@ -106,12 +106,53 @@ html body {
   border-collapse: collapse;
 }
 
+.contentTable th {
+  font-weight: bold;
+}
+
 .contentTable td {
   text-align: center;
 }
 
 .contentTable tr {
   border-top: 1px solid;
+}
+
+.contentTable #insertTicket {
+  border-top: 0;
+}
+
+.contentTable .modifyButtons {
+  cursor: pointer;
+  border: 0;
+  padding: 15px;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  width: 75px;
+  margin-right: 10px;
+}
+
+.contentTable #editBtn {
+  background-color: #007bff;
+}
+
+.contentTable #deleteBtn {
+  background-color: #dc3545;
+}
+
+.contentTable #insertBtn {
+  cursor: pointer;
+  border: 0;
+  padding: 15px;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  width: 100%;
+  margin-right: 10px;
+  background-color: #002d58;
 }
 
 .footer {

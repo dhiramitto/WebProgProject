@@ -14,6 +14,13 @@
         }
         else return true;
     }
+
+    public boolean isNum(String str){
+        for(int i=0; i<str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
+    }
 %>
 
 <%
@@ -319,6 +326,93 @@
 
                     response.sendRedirect("../adminCityList.jsp");
                 }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("editTicket")){
+            try{
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                String airline = request.getParameter("editAirline");
+                String from = request.getParameter("editFrom");
+                String to = request.getParameter("editTo");
+                String depart = request.getParameter("editDepartDate");
+                //nanti di-parse ke integer
+                String priceEco = request.getParameter("editPriceEco");
+                String priceBusiness = request.getParameter("editPriceBusiness");
+                String seat = request.getParameter("editAvailableSeat");
+
+                if(!isNum(priceEco) || !isNum(priceBusiness) || !isNum(seat)){
+                    response.sendRedirect("../adminEditTicket.jsp?err=1&id="+ id +"");
+                }
+                //cek tanggal minimal hari ini
+                else{
+                    //cari id dari tiap airline dan city dulu
+                    String searchAirlineId = "SELECT * FROM airline WHERE airline_name = '"+ airline +"'";
+                    Statement stAirlineID = con.createStatement();
+                    ResultSet searchAirlineRS = stAirlineID.executeQuery(searchAirlineId);
+                    int airlineID = 0;
+                    if(searchAirlineRS.next()){
+                        airlineID = searchAirlineRS.getInt("airline_id");
+                    }
+
+                    String searchFromId = "SELECT * FROM city WHERE city_name = '"+ from +"'";
+                    Statement stFromID = con.createStatement();
+                    ResultSet searchFromRS = stFromID.executeQuery(searchFromId);
+                    int fromID = 0;
+                    if(searchFromRS.next()){
+                        fromID = searchFromRS.getInt("city_id");
+                    }
+
+                    String searchToId = "SELECT * FROM city WHERE city_name = '"+ to +"'";
+                    Statement stToID = con.createStatement();
+                    ResultSet searchToRS = stToID.executeQuery(searchToId);
+                    int toID = 0;
+                    if(searchToRS.next()){
+                        toID = searchToRS.getInt("city_id");
+                    }
+
+                    //dimasukkin ke prepared statement
+                    String query = "UPDATE ticket SET airline_id = ?, from_city_id = ?, to_city_id = ?, depart_date = ?, price_economy = ?, price_business = ?, seat = ? WHERE ticket_id = ?";
+                    PreparedStatement stmt = con.prepareStatement(query);
+
+                    int eco = Integer.parseInt(priceEco);
+                    int business = Integer.parseInt(priceBusiness);
+                    int seat_int = Integer.parseInt(seat);
+                        
+                    stmt.setInt(1, airlineID);
+                    stmt.setInt(2, fromID);
+                    stmt.setInt(3, toID);
+                    stmt.setString(4, depart);
+                    stmt.setInt(5, eco);
+                    stmt.setInt(6, business);
+                    stmt.setInt(7, seat_int);
+                    stmt.setInt(8, id);
+                                
+                        
+                    stmt.executeUpdate();
+                      
+                    response.sendRedirect("../adminTicketList.jsp");
+                }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("deleteTicket")){
+            try{
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                String query = "DELETE FROM ticket WHERE ticket_id = ?";
+                PreparedStatement stmt = con.prepareStatement(query);
+
+                stmt.setInt(1, id);
+
+                stmt.executeUpdate();
+
+                response.sendRedirect("../adminTicketList.jsp");
             }
             catch(Exception e){
                 System.out.println(e);
