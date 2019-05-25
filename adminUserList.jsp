@@ -60,14 +60,19 @@
                         <td width=200px><%= vectorUser.get(i).getPassword() %></td>
                         <td><%= vectorUser.get(i).getGender() %></td>
                         <td width=200px>
-                            <a href="adminEditUser.jsp?id=<%= vectorUser.get(i).getId() %>"><button id="editBtn">Edit</button></a>
-                            <a href="process/controller.jsp?src=deleteUser&id=<%= vectorUser.get(i).getId() %>"><button id="deleteBtn">Delete</button></a>
+                            <a href="adminEditUser.jsp?id=<%= vectorUser.get(i).getId() %>"><button class="modifyButtons" id="editBtn">Edit</button></a>
+                            <a href="process/controller.jsp?src=deleteUser&id=<%= vectorUser.get(i).getId() %>"><button class="modifyButtons" id="deleteBtn">Delete</button></a>
                         </td>
                     </tr>
                     <%
                     }
                 %>
-
+                <tr>
+                    <td colspan="4"></td>
+                    <td>
+                        <a href="adminInsertUser.jsp"><button id="insertBtn">Insert User</button></a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

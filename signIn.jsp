@@ -8,7 +8,7 @@
 </head>
 <body>
     <%-- cek cookies --%>
-    <%
+    <%-- <%
         Cookie[] cookies = request.getCookies();
 
         String emailCookie = "";
@@ -20,7 +20,7 @@
         }
 
         if(!emailCookie.equals("")) response.sendRedirect("homePage.jsp");
-    %>
+    %> --%>
 
     <div class="content">
         <div class="contentHeader">

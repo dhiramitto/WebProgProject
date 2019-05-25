@@ -117,7 +117,8 @@
                                 response.sendRedirect("../homePage.jsp");
                             }
                         }
-
+                        //cookie belakangan urusnya
+                        /*
                         else if(rememberMe.equals("on")){
                             Cookie newCookie = new Cookie("email", email);
                             newCookie.setMaxAge(900);
@@ -131,6 +132,7 @@
                                 response.sendRedirect("../homePage.jsp");
                             }
                         }
+                        */
                                               
                         
                     }
@@ -197,6 +199,49 @@
                 stmt.executeUpdate();
 
                 response.sendRedirect("../adminUserList.jsp");
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("insertUser")){
+            try{
+                String name = request.getParameter("insertName");
+                String email = request.getParameter("insertEmail");
+                String password = request.getParameter("insertPassword");
+                String gender = request.getParameter("insertGender");
+            
+                if(name.equals("") || email.equals("") || password.equals("") || gender.equals("")){
+                    response.sendRedirect("../adminInsertUser.jsp?err=1");
+                }
+                else if(!isEmailValid(email)){
+                    response.sendRedirect("../adminInsertUser.jsp?err=2");
+                }
+                else{
+                    //cek emailnya udh ada atau belom
+                    String cek = "SELECT * FROM user WHERE email='"+ email +"' ";
+                    ResultSet rs = st.executeQuery(cek);
+
+                    if(rs.next()){
+                        response.sendRedirect("../adminInsertUser.jsp?err=3");
+                    }
+                    //lalu baru masukkin ke database
+                    else{
+                        String query = "INSERT INTO user (role_id, name, email, password, gender) VALUES (?, ?, ?, ?, ?)";
+                        PreparedStatement stmt = con.prepareStatement(query);
+                            
+                        stmt.setInt(1, 2);
+                        stmt.setString(2, name);
+                        stmt.setString(3, email);
+                        stmt.setString(4, password);
+                        stmt.setString(5, gender);
+                                
+                        stmt.executeUpdate();
+                                
+                        response.sendRedirect("../adminUserList.jsp");
+                    }
+                        
+                }
             }
             catch(Exception e){
                 System.out.println(e);

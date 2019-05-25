@@ -22,7 +22,7 @@
             Insert new user
         </div>
 
-        <form action="">
+        <form action="process/controller.jsp?src=insertUser" method="POST">
             <div class="contentInsertUser">
                 <div class="componentContainer">
                     <div class="insertText">Name</div>
@@ -37,8 +37,8 @@
                 <div class="componentContainer">
                     <div class="insertText">Gender</div>
                     <div class="radio">
-                        <input type="radio" name="gender" id="gender" value="Male"> Male
-                        <input type="radio" name="gender" id="gender" value="Female"> Female
+                        <input type="radio" name="insertGender" id="gender" value="Male"> Male
+                        <input type="radio" name="insertGender" id="gender" value="Female"> Female
                     </div>
                 </div>
 
@@ -49,6 +49,24 @@
 
                 <div class="button">
                     <input type="submit" value="Add User" id="insertBtn">
+                </div>
+
+                <div class="error">
+                    <%
+                    String error = request.getParameter("err");
+
+                    if(error != null){
+                        if(error.equals("1")){
+                            out.println("All elements must be filled!");
+                        }
+                        else if(error.equals("2")){
+                            out.println("Invalid email format");
+                        }
+                        else if(error.equals("3")){
+                            out.println("Email already exists");
+                        }
+                    }
+                    %>
                 </div>
             </div>
         </form>
