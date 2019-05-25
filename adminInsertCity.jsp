@@ -22,22 +22,34 @@
             Insert new city
         </div>
 
-        <form action="">
+        <form action="process/controller.jsp?src=insertCity" method="POST">
             <div class="contentInsertCity">
                 <div class="componentContainer">
                     <div class="insertText">City</div>
-                    <div class="insertField"><input type="text" name="insertCity" id="insertCity"></div>
+                    <div class="insertField"><input type="text" name="insertCityName" id="insertCity"></div>
                 </div>
 
                 <div class="componentContainer">
                     <div class="insertText">Country</div>
-                    <div class="insertField"><input type="text" name="insertCountry" id="insertCountry"></div>
+                    <div class="insertField"><input type="text" name="insertCountryName" id="insertCountry"></div>
                 </div>
 
                 <div id="dummyDiv"></div>
 
                 <div class="button">
                     <input type="submit" value="Add City" id="insertBtn">
+                </div>
+
+                <div class="error">
+                    <%
+                    String error = request.getParameter("err");
+
+                    if(error != null){
+                        if(error.equals("1")){
+                            out.println("All elements must be filled!");
+                        }
+                    }
+                    %>
                 </div>
             </div>
         </form>

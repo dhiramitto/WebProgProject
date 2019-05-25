@@ -247,6 +247,83 @@
                 System.out.println(e);
             }
         }
+        else if(fromPage.equals("editCity")){
+            try{
+                
+                int id = Integer.parseInt(request.getParameter("id"));
+                String cityName = request.getParameter("editCity");
+                String countryName = request.getParameter("editCountry");
+                
+                
+                if(cityName.equals("") || countryName.equals("")){
+                    response.sendRedirect("../adminEditCity.jsp?err=1&id="+ id +"");
+                }
+                else{
+                    
+                    //edit user berdasarkan id
+                    
+                    String query = "UPDATE city SET city_name = ?, country_name = ? WHERE city_id = ?";
+                    PreparedStatement stmt = con.prepareStatement(query);
+                        
+                    stmt.setString(1, cityName);
+                    stmt.setString(2, countryName);
+                    stmt.setInt(3, id);
+                                
+                        
+                    stmt.executeUpdate();
+                      
+                    response.sendRedirect("../adminCityList.jsp");
+                    
+                        
+                }
+
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("deleteCity")){
+            try{
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                String query = "DELETE FROM city WHERE city_id = ?";
+                PreparedStatement stmt = con.prepareStatement(query);
+
+                stmt.setInt(1, id);
+
+                stmt.executeUpdate();
+
+                response.sendRedirect("../adminCityList.jsp");
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("insertCity")){
+            try{
+                System.out.println(fromPage);
+                String cityName = request.getParameter("insertCityName");
+                String countryName = request.getParameter("insertCountryName");
+
+                if(cityName.equals("") || countryName.equals("")){
+                    response.sendRedirect("../adminInsertCity.jsp?err=1");
+                }
+                else{
+                    String query = "INSERT INTO city (city_name, country_name) VALUES (?,?)";
+                    PreparedStatement stmt = con.prepareStatement(query);
+
+                    stmt.setString(1, cityName);
+                    stmt.setString(2, countryName);
+
+                    stmt.executeUpdate();
+
+                    response.sendRedirect("../adminCityList.jsp");
+                }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
     }
     
         

@@ -35,4 +35,28 @@
         }
     }
 
+    class City{
+        private int id;
+        private String cityName;
+        private String countryName;
+
+        public City(int id, String city, String country){
+            this.id = id;
+            cityName = city;
+            countryName = country;
+        }
+
+        public int getId(){
+            return id;
+        }
+
+        public String getCityName(){
+            return cityName;
+        }
+
+        public String getCountryName(){
+            return countryName;
+        }
+    }
+
 %>

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +7,14 @@
     <link rel="stylesheet" type="text/css" href="assets/css/adminCityListStyle.css">
     <title>Cities List</title>
 </head>
+
+<%@include file="process/connect.jsp"%>
+<%@include file="process/model.jsp"%>
+
+<%
+    Vector<City> vectorCity= new Vector<City>();
+%>
+
 <body>
     <div class="header">
         <div class="headerMenu">
@@ -21,6 +30,15 @@
             Available city list
         </div>
 
+        <%
+            String query = "SELECT * FROM City";
+            ResultSet rs = st.executeQuery(query);
+
+            while(rs.next()){
+                vectorCity.add(new City(rs.getInt("city_id"), rs.getString("city_name"), rs.getString("country_name")));
+            }
+        %>
+
         <div class="contentTable">
             <table>
                 <thead>
@@ -29,18 +47,28 @@
                     <td>Action</td>
                 </thead>
 
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Password</td>            
-                </tr>
+                <%
+                    for(int i=0; i<vectorCity.size(); i++){
+                        %>
+                        <tr>
+                            <td><%= vectorCity.get(i).getCityName() %></td>
+                            <td><%= vectorCity.get(i).getCountryName() %></td>
+                            <td width=200px>
+                                <a href="adminEditCity.jsp?id=<%= vectorCity.get(i).getId() %>"><button class="modifyButtons" id="editBtn">Edit</button></a>
+                                <a href="process/controller.jsp?src=deleteCity&id=<%= vectorCity.get(i).getId() %>"><button class="modifyButtons" id="deleteBtn">Delete</button></a>
+                            </td>
+                        </tr>
+                        <%
+                    }
+                %>
 
                 <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Password</td>
+                    <td colspan="2"></td>
+                    <td>
+                        <a href="adminInsertCity.jsp"><button id="insertBtn">Insert City</button></a>
+                    </td>
                 </tr>
-
+                
             </table>
         </div>
     </div>

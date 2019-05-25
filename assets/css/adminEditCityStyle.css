@@ -129,6 +129,7 @@ html body {
 }
 
 .contentEditCity .button #editBtn {
+  cursor: pointer;
   background-color: #002d58;
   color: white;
   border-radius: 5px;
@@ -137,6 +138,12 @@ html body {
   border: 0;
   margin-top: 20px;
   padding: 10px 5px;
+}
+
+.contentEditCity .error {
+  text-align: center;
+  color: #b33a3a;
+  font-size: 18px;
 }
 
 .footer {

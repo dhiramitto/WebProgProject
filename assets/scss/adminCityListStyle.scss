@@ -97,6 +97,41 @@ html{
     tr{
         border-top: 1px solid;
     }
+
+    //style utk button di table
+    .modifyButtons{
+        cursor: pointer;
+        border: 0;
+        padding: 15px;
+        color: white;
+        border-radius: 5px;
+        font-family: Calibri;
+        font-size: 16px;
+        width: 75px;
+        margin-right: 10px;
+    }
+
+    #editBtn{
+        background-color: $blue-button;
+    }
+
+    #deleteBtn{
+        background-color: $red-button;
+    }
+
+    #insertBtn{
+        cursor: pointer;
+        border: 0;
+        padding: 15px;
+        color: white;
+        border-radius: 5px;
+        font-family: Calibri;
+        font-size: 16px;
+        width: 100%;
+        margin-right: 10px;
+        background-color: $main-color;
+    }
+    //////////
     
 }
 
