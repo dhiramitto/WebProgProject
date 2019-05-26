@@ -138,4 +138,76 @@
 
     }
 
+    class TransactionHeader{
+        private int id;
+        private String orderDate;
+        private int buyer;
+        private String status;
+
+        public TransactionHeader(int id, String orderDate, int buyer, String status){
+            this.id = id;
+            this.orderDate = orderDate;
+            this.buyer = buyer;
+            this.status = status;
+        }
+
+        public int getId(){
+            return id;
+        }
+
+        public String getOrderDate(){
+            return orderDate;
+        }
+
+        public int getBuyer(){
+            return buyer;
+        }
+
+        public String getStatus(){
+            return status;
+        }
+    }
+
+    /*
+    class SearchResult{
+        private String airline;
+        private String from;
+        private String to;
+        private int price;
+        private String found; //untuk ngasih tau dia found atau engga
+
+        public SearchResult(String found){
+            this.found = found;
+        }
+
+        public SearchResult(String airline, String from, String to, int price, String found){
+            this.airline = airline;
+            this.from = from;
+            this.to = to;
+            this.price = price;
+            this.found = found;
+        }
+
+        public String getAirline(){
+            return airline;
+        }
+
+        public String getFrom(){
+            return from;
+        }
+
+        public String getTo(){
+            return to;
+        }
+
+        public int getPrice(){
+            return price;
+        }
+
+        public String getFound(){
+            return found;
+        }
+    }
+    */
+
 %>

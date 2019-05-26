@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Vector" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Date" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.text.SimpleDateFormat" errorPage="" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +9,33 @@
     <link rel="stylesheet" type="text/css" href="assets/css/homePageStyle.css">
     <title>Main Page</title>
 </head>
+
+<%@include file="process/connect.jsp" %>
+<%@include file="process/model.jsp" %>
+
+<%
+    //kalo logged in, ambil user_id nya dari database
+
+    Vector<CityName> vectorCity = new Vector<CityName>();
+
+    String query = "SELECT * FROM city ORDER BY city_name";
+    ResultSet rs = st.executeQuery(query);
+
+    while(rs.next()){
+        vectorCity.add(new CityName(rs.getString("city_name")));
+    }
+
+    String userId = (String) session.getAttribute("userID");    
+    int userIDint = 0;
+
+    if(userId != null){
+        userIDint = Integer.parseInt(userId);
+    }
+
+    Date today = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String todayDate = sdf.format(today);
+%>
 <body>
 
     <div class="header">
@@ -23,19 +53,19 @@
                     <%
                 }
                 else{
+                    int role = (Integer) session.getAttribute("role");
+                    if(role == 1){
+                        %>
+                            <a href="adminUserList.jsp">Dashboard</a>
+                        <%
+                    }
+                    
                     %>
+                    <%-- nanti ya track order nya --%>
+                        <div>Track Order</div>
                         <div class="usernameDisplay">
                             <%= name %>
                             <div class="headerMenuContent">
-                                <%
-                                    int role = (Integer) session.getAttribute("role");
-
-                                    if(role == 1){
-                                        %>
-                                            <a href="adminUserList.jsp">Dashboard</a>
-                                        <%
-                                    }
-                                %>
                                 <a href="process/doLogout.jsp">Logout</a>
                             </div>
                         </div>
@@ -56,7 +86,12 @@
         </div>
 
 
-        <form action="">
+        <form action="search.jsp" method="GET">
+            <input type="hidden" name="src" value="homePage">
+            
+            <%-- kalo 0, dia guest, kalo ga 0, dia member --%>
+            <input type="hidden" name="memberId" value="<%= userIDint %>">
+
             <div class="contentForm">
                 <div class="formHeader">Where are you going?</div>
                 <div class="formPic"> <img src="assets/img/plane.png" alt="" height="100px" width="100px"> </div>
@@ -65,10 +100,14 @@
                     <div class="formFrom">
                         <div class="formText">From</div>
                         <div class="formSelect">
-                            <select name="fromHome" id="fromHome">
-                                <option value="Jakarta">Jakarta</option>
-                                <option value="Bandung">Bandung</option>
-                                <option value="Semarang">Semarang</option>
+                            <select name="homeFrom" id="fromHome">
+                                <%
+                                    for(int i=0; i<vectorCity.size(); i++){
+                                        %>
+                                            <option value="<%= vectorCity.get(i).getCity() %>"><%= vectorCity.get(i).getCity() %></option>
+                                        <%
+                                    }
+                                %>
                             </select>
                         </div>
                     </div>
@@ -76,11 +115,7 @@
                     <div class="departForm">
                         <div class="formText">Departure Date</div>
                         <div class="formSelect">
-                            <select name="departHome" id="departHome">
-                                <option value="1">Date1</option>
-                                <option value="2">Date2</option>
-                                <option value="3">Date3</option>
-                            </select>
+                            <input type="date" name="homeDate" id="" value="<%= todayDate %>">
                         </div>
                     </div>                    
                 </div>
@@ -89,10 +124,14 @@
                     <div class="formTo">
                         <div class="formText">To</div>
                         <div class="formSelect">
-                            <select name="selectTo" id="selectTo">
-                                <option value="Jakarta">Jakarta</option>
-                                <option value="Bandung">Bandung</option>
-                                <option value="Semarang">Semarang</option>
+                            <select name="homeTo" id="selectTo">
+                                <%
+                                    for(int i=0; i<vectorCity.size(); i++){
+                                        %>
+                                            <option value="<%= vectorCity.get(i).getCity() %>"><%= vectorCity.get(i).getCity() %></option>
+                                        <%
+                                    }
+                                %>
                             </select>
                         </div>
                     </div>
@@ -101,12 +140,17 @@
                         <div class="formPassengers">
                             <div class="formText">Passengers</div>
                             <div class="formSelect"> 
-                                <select name="passengerHome" id="passengerHome">
+                                <select name="homePassengerQuantity" id="passengerHome">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                             </div>
                         </div>
@@ -114,10 +158,9 @@
                         <div class="formClass">
                             <div class="formText">Cabin Class</div>
                             <div class="formSelect">
-                                <select name="classHome" id="classHome">
+                                <select name="homeClass" id="classHome">
                                     <option value="Economy">Economy</option>
                                     <option value="Business">Business</option>
-                                    <option value="Executive">Executive</option>
                                 </select>
                             </div>
                         </div>

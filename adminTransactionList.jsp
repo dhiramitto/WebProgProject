@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +7,21 @@
     <link rel="stylesheet" type="text/css" href="assets/css/adminTransactionListStyle.css">
     <title>Transaction List</title>
 </head>
+
+<%@include file="process/connect.jsp" %>
+<%@include file="process/model.jsp" %>
+
+<%
+    Vector<TransactionHeader> vectorTransactionHeader = new Vector<TransactionHeader>();
+    //invoiceNumber buat sendiri entar
+    String query = "SELECT * FROM transaction_header";
+    ResultSet rs = st.executeQuery(query);
+
+    while(rs.next()){
+        vectorTransactionHeader.add(new TransactionHeader(rs.getInt("transaction_header_id"), rs.getString("order_date"), rs.getInt("buyer"), rs.getString("status")));
+    }
+%>
+
 <body>
     <div class="header">
         <div class="headerMenu">
@@ -31,21 +47,37 @@
                     <td>Action</td>
                 </thead>
 
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Password</td>
-                    <td>Gender</td>
-                    <td>Action</td>
-                </tr>
+                <%
+                    for(int i=0; i<vectorTransactionHeader.size(); i++){
+                        String invoiceNumber = "INV/";
+                        for(int j=0; j<vectorTransactionHeader.get(i).getOrderDate().length(); j++){
+                            if(vectorTransactionHeader.get(i).getOrderDate().charAt(j) == '-') continue;
+                            else invoiceNumber+=vectorTransactionHeader.get(i).getOrderDate().charAt(j);
+                        }
+                        invoiceNumber= invoiceNumber + "/" + vectorTransactionHeader.get(i).getId();
 
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Password</td>
-                    <td>Gender</td>
-                    <td>Action</td>
-                </tr>
+                        //cari buyer name dari id user
+                        String buyerName = "";
+                        String query_search_buyer = "SELECT * FROM user WHERE user_id='"+vectorTransactionHeader.get(i).getId()+"'";
+                        Statement searchBuyer = con.createStatement();
+                        ResultSet buyerNameRs = searchBuyer.executeQuery(query_search_buyer);
+
+                        if(buyerNameRs.next()){
+                            buyerName = buyerNameRs.getString("name");
+                        }
+                        %>
+                            <tr>
+                                <td><%= invoiceNumber %></td>
+                                <td><%= vectorTransactionHeader.get(i).getOrderDate() %></td>
+                                <td><%= buyerName %></td>
+                                <td><%= vectorTransactionHeader.get(i).getStatus() %></td>
+                                <td>
+                                    buttons
+                                </td>
+                            </tr>
+                        <%
+                    }
+                %>
 
             </table>
         </div>

@@ -18,6 +18,8 @@ html{
     font-size: 18px;
     background-color: $main-color;
     color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .headerText{
@@ -26,8 +28,12 @@ html{
 }
 
 .loginContainer{
-    float: right;
-    margin: 10px 150px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    justify-self: right;
+    grid-column-gap: 20px;
+    align-items: center;
+    margin-right: 100px;
 }
 
 //untuk dropdown menu
@@ -119,6 +125,13 @@ select{
         display: grid;
         grid-template-rows: 1fr 1fr 1fr 1fr;
         margin-top: 45px;
+
+        input[type="date"]{
+            width: 100%;
+            padding: 5px;
+            font-size: 18px;
+            font-family: Calibri;
+        }
     }
 
     .formRight{
@@ -139,6 +152,7 @@ select{
     }
 
     #searchBtn{
+        cursor: pointer;
         padding: 5px;
         background-color: $main-color;
         color: white;

@@ -30,6 +30,10 @@ html body {
   font-size: 18px;
   background-color: #002d58;
   color: white;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
 }
 
 .headerText {
@@ -38,8 +42,17 @@ html body {
 }
 
 .loginContainer {
-  float: right;
-  margin: 10px 150px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 2fr 2fr;
+      grid-template-columns: 2fr 2fr 2fr;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  grid-column-gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 100px;
 }
 
 .usernameDisplay:hover .headerMenuContent {
@@ -138,6 +151,13 @@ select {
   margin-top: 45px;
 }
 
+.contentForm .formLeft input[type="date"] {
+  width: 100%;
+  padding: 5px;
+  font-size: 18px;
+  font-family: Calibri;
+}
+
 .contentForm .formRight {
   display: -ms-grid;
   display: grid;
@@ -161,6 +181,7 @@ select {
 }
 
 .contentForm #searchBtn {
+  cursor: pointer;
   padding: 5px;
   background-color: #002d58;
   color: white;

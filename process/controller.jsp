@@ -143,6 +143,7 @@
                     
 
                     if(rs.next()){
+                        int user_id = rs.getInt("user_id");
                         int role_id_db = rs.getInt("role_id"); //1 admin, 2 user biasa
                         String name_db = rs.getString("name");
 
@@ -156,6 +157,7 @@
                         online++;
                         application.setAttribute("online", online);
 
+                        session.setAttribute("userID", user_id+"");
                         session.setAttribute("name", name_db);
                         session.setAttribute("role", role_id_db); //1 admin, 2 user biasa
 
@@ -541,6 +543,32 @@
             catch(Exception e){
                 System.out.println(e);
             }
+        }
+        else if(fromPage.equals("homePage")){
+            /*
+            src=homePage
+            memberId=1 kalo 0, guest. kalo ga 0, dia member
+            homeFrom=Bandung
+            homeDate=2019-05-26
+            homeTo=Bandung
+            homePassengerQuantity=1
+            classHome=Economy
+            */
+                try{
+                    Date todayDate = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String today = formatter.format(todayDate);
+
+                    int memberId = Integer.parseInt(request.getParameter("memberId"));
+                    String from = request.getParameter("homeFrom");
+                    String to = request.getParameter("homeTo");
+                    String departDate = request.getParameter("homeDate");
+                    int qty = Integer.parseInt(request.getParameter("homePassengerQuantity"));
+                    String cabinClass = request.getParameter("homeClass");
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
         }
     }
     

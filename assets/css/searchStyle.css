@@ -103,16 +103,8 @@ html body {
   border: 0;
 }
 
-.searchResult .pagination table {
+.pagination {
   text-align: center;
-  border-collapse: separate;
-  border-spacing: 10px;
-}
-
-.searchResult .pagination table td {
-  border-radius: 5px;
-  -webkit-box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
-          box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
 }
 
 .footer {
