@@ -1,2 +1,3 @@
 Dropdown menu reference: https://www.w3schools.com/howto/howto_js_dropdown.asp
 isNum() function reference: https://way2java.com/java-lang/class-character/java-character-isdigit-method-example/
+checkDate() function reference: https://www.javatpoint.com/java-simpledateformat

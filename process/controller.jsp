@@ -394,10 +394,10 @@
                 else if(!checkDate(depart)){
                     response.sendRedirect("../adminEditTicket.jsp?err=2&id="+ id +"");
                 }
+                else if(priceEco.equals("") || priceBusiness.equals("") || seat.equals("") || depart.equals("")){
+                    response.sendRedirect("../adminEditTicket.jsp?err=3&id="+ id +"");
+                }
                 else{
-                    %>
-                        <%= fromPage %>
-                    <%
                     //cari id dari tiap airline dan city dulu
                     String searchAirlineId = "SELECT * FROM airline WHERE airline_name = '"+ airline +"'";
                     Statement stAirlineID = con.createStatement();
@@ -462,6 +462,81 @@
                 stmt.executeUpdate();
 
                 response.sendRedirect("../adminTicketList.jsp");
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("insertTicket")){
+            try{
+                %>
+                    <%= fromPage %>
+                <%
+                String airline = request.getParameter("insertAirline");
+                String from = request.getParameter("insertFrom");
+                String to = request.getParameter("insertTo");
+                String depart = request.getParameter("insertDepartDate");
+                //nanti di-parse ke integer
+                String priceEco = request.getParameter("insertPriceEco");
+                String priceBusiness = request.getParameter("insertPriceBusiness");
+                String seat = request.getParameter("insertAvailableSeat");
+
+                if(!isNum(priceEco) || !isNum(priceBusiness) || !isNum(seat)){
+                    response.sendRedirect("../adminInsertTicket.jsp?err=1");
+                }
+                //cek tanggal minimal hari ini
+                else if(!checkDate(depart)){
+                    response.sendRedirect("../adminInsertTicket.jsp?err=2");
+                }
+                else if(priceEco.equals("") || priceBusiness.equals("") || seat.equals("") || depart.equals("")){
+                    response.sendRedirect("../adminInsertTicket.jsp?err=3");
+                }
+                else{
+                    //cari id dari tiap airline dan city dulu
+                    String searchAirlineId = "SELECT * FROM airline WHERE airline_name = '"+ airline +"'";
+                    Statement stAirlineID = con.createStatement();
+                    ResultSet searchAirlineRS = stAirlineID.executeQuery(searchAirlineId);
+                    int airlineID = 0;
+                    if(searchAirlineRS.next()){
+                        airlineID = searchAirlineRS.getInt("airline_id");
+                    }
+
+                    String searchFromId = "SELECT * FROM city WHERE city_name = '"+ from +"'";
+                    Statement stFromID = con.createStatement();
+                    ResultSet searchFromRS = stFromID.executeQuery(searchFromId);
+                    int fromID = 0;
+                    if(searchFromRS.next()){
+                        fromID = searchFromRS.getInt("city_id");
+                    }
+
+                    String searchToId = "SELECT * FROM city WHERE city_name = '"+ to +"'";
+                    Statement stToID = con.createStatement();
+                    ResultSet searchToRS = stToID.executeQuery(searchToId);
+                    int toID = 0;
+                    if(searchToRS.next()){
+                        toID = searchToRS.getInt("city_id");
+                    }
+
+                    //dimasukkin ke prepared statement
+                    String query = "INSERT INTO ticket (airline_id, from_city_id, to_city_id, depart_date, price_economy, price_business, seat) VALUES(?,?,?,?,?,?,?)";
+                    PreparedStatement stmt = con.prepareStatement(query);
+
+                    int eco = Integer.parseInt(priceEco);
+                    int business = Integer.parseInt(priceBusiness);
+                    int seat_int = Integer.parseInt(seat);
+                        
+                    stmt.setInt(1, airlineID);
+                    stmt.setInt(2, fromID);
+                    stmt.setInt(3, toID);
+                    stmt.setString(4, depart);
+                    stmt.setInt(5, eco);
+                    stmt.setInt(6, business);
+                    stmt.setInt(7, seat_int);
+                        
+                    stmt.executeUpdate();
+                      
+                    response.sendRedirect("../adminTicketList.jsp");
+                }
             }
             catch(Exception e){
                 System.out.println(e);

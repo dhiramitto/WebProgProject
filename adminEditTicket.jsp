@@ -193,6 +193,9 @@
                         else if(error.equals("2")){
                             out.println("Departure date must be minimum today");
                         }
+                        else if(error.equals("3")){
+                            out.println("All elements must be filled!");
+                        }
                     }
                     %>
                 </div>
