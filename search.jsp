@@ -91,7 +91,7 @@
                     total_data = Integer.parseInt(count);
                 }
                 
-                String query = "SELECT t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' LIMIT "+ start_data +", "+ data_per_page +"";
+                String query = "SELECT t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' AND t.seat >= "+ qty +" LIMIT "+ start_data +", "+ data_per_page +"";
                 ResultSet rs = st.executeQuery(query);
 
                 if(!rs.next()){
