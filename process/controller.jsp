@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.text.SimpleDateFormat" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Date" errorPage="" %>
 <%@ include file = "connect.jsp" %>
 
 <%!
@@ -18,6 +20,47 @@
     public boolean isNum(String str){
         for(int i=0; i<str.length(); i++){
             if(!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    //cek tanggal harus minimal hari ini
+    public boolean checkDate(String date){
+        String year = "", month = "", day = "";
+        String todayYear = "", todayMonth = "", todayDay = "";
+
+        Date todayDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String today = formatter.format(todayDate);
+
+        for(int i=0; i<date.length(); i++){
+            if(date.charAt(i) == '-') continue;
+
+            if(i<4) year += date.charAt(i);
+            else if(i>4 && i<7) month += date.charAt(i);
+            else if(i>7) day += date.charAt(i);
+        }
+
+        for(int i=0; i<today.length(); i++){
+            if(today.charAt(i) == '-') continue;
+
+            if(i<4) todayYear += today.charAt(i);
+            else if(i>4 && i<7) todayMonth += today.charAt(i);
+            else if(i>7) todayDay += today.charAt(i);
+        }
+        
+
+        int paramYear = Integer.parseInt(year), paramMonth = Integer.parseInt(month), paramDay = Integer.parseInt(day);
+        int todayYearInt = Integer.parseInt(todayYear), todayMonthInt = Integer.parseInt(todayMonth), todayDayInt = Integer.parseInt(todayDay);
+
+        if(paramYear > todayYearInt) return true;
+        else{
+            if(paramMonth < todayMonthInt){
+                return false;
+            }
+            else if(paramMonth == todayMonthInt){
+                if(paramDay < todayDayInt) return false;
+            }
         }
         return true;
     }
@@ -332,7 +375,7 @@
             }
         }
         else if(fromPage.equals("editTicket")){
-            try{
+            try{   
                 int id = Integer.parseInt(request.getParameter("id"));
 
                 String airline = request.getParameter("editAirline");
@@ -348,7 +391,13 @@
                     response.sendRedirect("../adminEditTicket.jsp?err=1&id="+ id +"");
                 }
                 //cek tanggal minimal hari ini
+                else if(!checkDate(depart)){
+                    response.sendRedirect("../adminEditTicket.jsp?err=2&id="+ id +"");
+                }
                 else{
+                    %>
+                        <%= fromPage %>
+                    <%
                     //cari id dari tiap airline dan city dulu
                     String searchAirlineId = "SELECT * FROM airline WHERE airline_name = '"+ airline +"'";
                     Statement stAirlineID = con.createStatement();
