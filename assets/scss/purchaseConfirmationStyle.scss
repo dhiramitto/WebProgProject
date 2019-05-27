@@ -94,6 +94,15 @@ html{
                 grid-template-rows: 1fr 1fr;
             }
         }
+
+        .detailHeader{
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .detailContent{
+            margin-left: 10px;
+        }
     }
 
     .right{
@@ -116,11 +125,13 @@ html{
         }
 
         #payBtn{
+            cursor: pointer;
             background-color: $main-color;
             margin-bottom: 10px;
         }
 
         #cancelBtn{
+            cursor: pointer;
             background-color: $red-button;
         }
     }

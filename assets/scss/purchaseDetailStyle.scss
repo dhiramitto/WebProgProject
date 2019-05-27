@@ -89,6 +89,7 @@ html{
     }
 
     button{
+        cursor: pointer;
         padding: 5px;
         background-color: $main-color;
         color: white;
@@ -97,6 +98,17 @@ html{
         font-size: 16px;
         border: 0;
         margin-bottom: 10px;
+        justify-self: end;
+    }
+
+    .end{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .error{
+        color: $warning-red;
+        font-size: 18px;
     }
     
 }

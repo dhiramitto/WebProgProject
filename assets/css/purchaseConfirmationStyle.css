@@ -111,6 +111,15 @@ html body {
       grid-template-rows: 1fr 1fr;
 }
 
+.contentWrapper .left .detailHeader {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.contentWrapper .left .detailContent {
+  margin-left: 10px;
+}
+
 .contentWrapper .right .userDetail {
   margin: 25px 100px 25px 0;
 }
@@ -129,11 +138,13 @@ html body {
 }
 
 .contentWrapper .right #payBtn {
+  cursor: pointer;
   background-color: #002d58;
   margin-bottom: 10px;
 }
 
 .contentWrapper .right #cancelBtn {
+  cursor: pointer;
   background-color: #dc3545;
 }
 

@@ -102,6 +102,7 @@ html body {
 }
 
 .formPurchase button {
+  cursor: pointer;
   padding: 5px;
   background-color: #002d58;
   color: white;
@@ -110,6 +111,20 @@ html body {
   font-size: 16px;
   border: 0;
   margin-bottom: 10px;
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.formPurchase .end {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+.formPurchase .error {
+  color: #b33a3a;
+  font-size: 18px;
 }
 
 .footer {

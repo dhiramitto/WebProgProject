@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.text.SimpleDateFormat" errorPage="" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Date" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Vector" errorPage="" %>
 
 <html lang="en">
 <head>
@@ -37,6 +38,10 @@
     int start_data = 1;
     int total_data = 0;
 
+    boolean isLoggedIn = true;
+    boolean found = true;
+    Vector<SearchResult> vectorResult = new Vector<SearchResult>();
+
     if(fromPage!=null){
         try{
             String pg = request.getParameter("page");
@@ -61,6 +66,24 @@
             departDate = request.getParameter("homeDate");
             qty = Integer.parseInt(request.getParameter("homePassengerQuantity"));
             cabinClass = request.getParameter("homeClass");
+
+            String query = "SELECT t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' AND t.seat >= "+ qty +" AND t.depart_date LIKE '"+ departDate +"' LIMIT "+ start_data +", "+ data_per_page +"";
+            ResultSet rs = st.executeQuery(query);
+
+            if(!rs.next()){
+                found = false;
+            }
+            else{
+                found = true;
+                rs.beforeFirst();
+                while(rs.next()){
+                    if(cabinClass.equals("Economy")) vectorResult.add(new SearchResult(rs.getInt("ticket_id"),rs.getString("airline_name"), rs.getString("from"), rs.getString("to"), rs.getInt("price_economy")));
+                    else vectorResult.add(new SearchResult(rs.getInt("ticket_id"),rs.getString("airline_name"), rs.getString("from"), rs.getString("to"), rs.getInt("price_business")));
+                }
+            }
+
+
+
         }
         catch(Exception e){
             out.println(e);
@@ -76,7 +99,20 @@
             <a href="homePage.jsp">Home</a>
         </div>
         <span class="logInContainer">
-            <%@include file="includes/usernameDisplay.jsp" %>
+            <%
+            String name = (String) session.getAttribute("name");
+
+            if(name == null){
+                isLoggedIn = false;
+                %>
+                <span><a href="signIn.jsp">Sign In</a></span>
+                <span><a href="register.jsp">Register</a></span>
+                <%
+            }
+            else{
+                out.println(name);
+            }
+            %>
         </span>
     </div>
     
@@ -90,53 +126,47 @@
                     String count = (String) rsTotalData.getString("total_data");
                     total_data = Integer.parseInt(count);
                 }
-                String query = "SELECT t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' AND t.seat >= "+ qty +" AND t.depart_date LIKE '"+ departDate +"' LIMIT "+ start_data +", "+ data_per_page +"";
-                ResultSet rs = st.executeQuery(query);
 
-                if(!rs.next()){
-                    out.println("No ticket found");
-                }
+                if(!found) out.println("Ticket not found");
                 else{
-                    rs.beforeFirst();
-                    while(rs.next()){
+                    for(int i=0; i<vectorResult.size(); i++){
                         %>
-                        <div class="searchResult">
-                            <table>
-                                <tr>
-                                    <th>Airline</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                    <th>Price</th>
-                                    <td rowspan="2" class="buttonContainer">
+                            <div class="searchResult">
+                                <table>
+                                    <tr>
+                                        <th>Airline</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Price</th>
+                                        <td rowspan="2" class="buttonContainer">
                                         <%-- purchase details --%>
-                                        <form action="">
+                                        <%
+                                        if(isLoggedIn){
+                                            %>
+                                            <%-- kirim tanggal hari ini, ticket_id --%>
+                                            <form action="purchaseDetail.jsp" method="GET">
+                                            <input type="hidden" name="id" value="<%= vectorResult.get(i).getTicketId() %>">
+                                            <input type="hidden" name="qty" value=<%= qty %>>
+                                            <input type="hidden" name="price" value=<%= vectorResult.get(i).getPrice() %>>
                                             <button id="purchaseBtn">+</button>
-                                        </form>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                    <td><%= rs.getString("airline_name") %></td>
-                                    <td><%= rs.getString("from") %></td>
-                                    <td><%= rs.getString("to") %></td>
-                                    <%
-                                        if(cabinClass.equals("Economy")){
-                                            %>
-                                                <td><%= rs.getInt("price_economy") %></td>
+                                            </form>
                                             <%
-                                        }
-                                        else if(cabinClass.equals("Business")){
+                                            }
                                             %>
-                                                <td><%= rs.getInt("price_business") %></td>
-                                            <%
-                                        }
-                                    %>
-                                </tr>
-                            </table>
-                        </div>
+                                        </td> 
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><%= vectorResult.get(i).getAirline() %></td>
+                                        <td><%= vectorResult.get(i).getFrom() %></td>
+                                        <td><%= vectorResult.get(i).getTo() %></td>
+                                        <td>Rp. <%= vectorResult.get(i).getPrice() %></td>
+                                    </tr>
+                                </table>
+                            </div>
                         <%
                     }
-                }
-                
+                }                
             }
             catch(Exception e){
                 out.println(e);

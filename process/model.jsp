@@ -168,24 +168,23 @@
         }
     }
 
-    /*
     class SearchResult{
+        private int ticketId;
         private String airline;
         private String from;
         private String to;
         private int price;
-        private String found; //untuk ngasih tau dia found atau engga
 
-        public SearchResult(String found){
-            this.found = found;
-        }
-
-        public SearchResult(String airline, String from, String to, int price, String found){
+        public SearchResult(int ticketId, String airline, String from, String to, int price){
+            this.ticketId = ticketId;
             this.airline = airline;
             this.from = from;
             this.to = to;
             this.price = price;
-            this.found = found;
+        }
+
+        public int getTicketId(){
+            return ticketId;
         }
 
         public String getAirline(){
@@ -203,11 +202,24 @@
         public int getPrice(){
             return price;
         }
+    }
 
-        public String getFound(){
-            return found;
+    class PurchaseConfirmation{
+        private String name;
+        private String nationality;
+
+        public PurchaseConfirmation(String name, String nationality){
+            this.name = name;
+            this.nationality = nationality;
+        }
+
+        public String getName(){
+            return name;
+        }
+
+        public String getNationality(){
+            return nationality;
         }
     }
-    */
 
 %>
