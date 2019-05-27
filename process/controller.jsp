@@ -801,10 +801,6 @@
                         stSetSeat.executeUpdate(setSeatQuery);
                         
 
-                        if(rsGetSeat.next()){
-                            totalSeat = rsGetSeat.getInt("seat");
-                        }
-
                         String query_update = "UPDATE transaction_header SET status = 'Rejected' WHERE transaction_header_id="+headerId;
                         st.executeUpdate(query_update);
                         
@@ -818,6 +814,54 @@
                         response.sendRedirect("../adminTransactionList.jsp");
                     }
                 }
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("trackOrder")){
+            try{
+                //user cancel sendiri order-an nya dr page track order
+                int headerId = Integer.parseInt(request.getParameter("id"));
+
+                //update lagi seat nya
+                int qty=0;
+                String getQty = "SELECT COUNT(*) AS 'qty' FROM transaction_detail WHERE transaction_header_id="+headerId;
+                Statement stGetQty = con.createStatement();
+                ResultSet rsQty = stGetQty.executeQuery(getQty);
+
+                if(rsQty.next()){
+                    qty = rsQty.getInt("qty");
+                }
+
+                //dapetin ticket_id dari headerId
+                int ticket_id = 0;
+                String getTicketId = "SELECT ticket_id FROM transaction_header WHERE transaction_header_id="+headerId;
+                Statement stTicketId = con.createStatement();
+                ResultSet rsTicketId = stTicketId.executeQuery(getTicketId);
+
+                if(rsTicketId.next()) ticket_id = rsTicketId.getInt("ticket_id");
+
+                int totalSeat = -1;
+                String getSeatQuery = "SELECT seat FROM ticket WHERE ticket_id="+ticket_id;
+                Statement stGetSeat = con.createStatement();
+                ResultSet rsGetSeat = stGetSeat.executeQuery(getSeatQuery);
+                        
+                if(rsGetSeat.next()) totalSeat = rsGetSeat.getInt("seat");
+                out.println(totalSeat);
+                totalSeat += qty;
+                out.println(totalSeat);
+
+                
+                String setSeatQuery = "UPDATE ticket SET seat = "+totalSeat+" WHERE ticket_id="+ticket_id;
+                Statement stSetSeat = con.createStatement();
+                stSetSeat.executeUpdate(setSeatQuery);
+                
+
+                String query = "UPDATE transaction_header SET status='Canceled' WHERE transaction_header_id="+headerId;
+                st.executeUpdate(query);
+
+                response.sendRedirect("../homePage.jsp");
             }
             catch(Exception e){
                 System.out.println(e);

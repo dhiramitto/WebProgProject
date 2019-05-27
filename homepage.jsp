@@ -61,8 +61,7 @@
                     }
                     
                     %>
-                    <%-- nanti ya track order nya --%>
-                        <div>Track Order</div>
+                        <div><a href="trackOrder.jsp">Track Order</a></div>
                         <div class="usernameDisplay">
                             <%= name %>
                             <div class="headerMenuContent">
