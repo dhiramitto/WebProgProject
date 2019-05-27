@@ -29,9 +29,11 @@
     String qtyParam = request.getParameter("qty");
     String ticketIdParam = request.getParameter("id");
     String priceParam = request.getParameter("price");
+    String cabinClass = request.getParameter("cabinClass");
     int qty = 0;
     int ticketId = 0;
     int price = 0;
+    boolean cek = true;
 
     if(qtyParam!=null && ticketIdParam!=null){
         String temp;
@@ -44,7 +46,9 @@
         }
         
         if(vectorInputName.size() < qty){
-            response.sendRedirect("purchaseDetail.jsp?err=1&id="+ticketId+"&qty="+qty+"&price="+price+"");
+            cek = false;
+            response.sendRedirect("purchaseDetail.jsp?err=1&id="+ticketId+"&qty="+qty+"&price="+price+"&cabinClass="+cabinClass);
+            //&id="+ticketId+"&qty="+qty+"&price="+price+"&cabinClass="+cabinClass
         }
     }
     
@@ -53,12 +57,16 @@
     //dari parameter dan di-loop sesuai qty
     //perlu vector of class
     Vector<PurchaseConfirmation> vectorNameNationality = new Vector<PurchaseConfirmation>();
+    String title = "";
     String nationality = "";
-    for(int i=0; i<qty; i++){
-        nationality = request.getParameter("detailNationality"+(i+1));
-        vectorNameNationality.add(new PurchaseConfirmation(vectorInputName.get(i), nationality));
-    }
     
+    if(cek){
+        for(int i=0; i<qty; i++){
+            title = request.getParameter("detailTitle"+(i+1));
+            nationality = request.getParameter("detailNationality"+(i+1));
+            vectorNameNationality.add(new PurchaseConfirmation(title, vectorInputName.get(i), nationality));
+        }
+    }    
     
     //dari ticketid
     String from = "";
@@ -99,12 +107,19 @@
             <br>
             Confirm your tickets
         </div>
+
         <form action="process/controller.jsp" method="GET">
+            <input type="hidden" name="src" value="insertTransaction">
+            <input type="hidden" name="ticketid" value="<%= ticketId %>">
+            <input type="hidden" name="qty" value="<%= qty %>">
+            <input type="hidden" name="userid" value="<%= userId %>">
+            <input type="hidden" name="cabinClass" value="<%= cabinClass %>">
             <div class="contentWrapper">
                 <%-- tampilin jumlah orang yg muncul dgn loop --%>
                 <div class="left">
                     <%-- class passenger yang di-loop --%>
                     <%
+                    if(cek){
                         for(int i=0; i<qty; i++){
                             %>
                                 <div class="passengers">
@@ -112,13 +127,16 @@
                                     <div class="passengerDetail">
                                         <div class="detail">
                                             <div class="detailHeader">Name</div>
-                                            <div class="detailContent"><%= vectorNameNationality.get(i).getName() %></div>
+                                            <div class="detailContent"><%= vectorNameNationality.get(i).getTitle() + " " + vectorNameNationality.get(i).getName() %></div>
+                                            <input type="hidden" name="detailTitle<%= i+1 %>" value="<%= vectorNameNationality.get(i).getTitle() %>">
+                                            <input type="hidden" name="detailName<%= i+1 %>" value="<%= vectorNameNationality.get(i).getName() %>">
                                             <%-- buat input hidden di sini utk nama dan nationality --%>
                                         </div>
                                                             
                                         <div class="detail">
                                             <div class="detailHeader"> Nationality </div>
                                             <div class="detailContent"> <%= vectorNameNationality.get(i).getNationality() %> </div>
+                                            <input type="hidden" name="detailNationality<%= i+1 %>" value="<%= vectorNameNationality.get(i).getNationality() %>">
                                         </div>
 
                                         <div class="detail">
@@ -134,9 +152,11 @@
                                 </div>
                             <%
                         }
+                    }
                     %>
                     
                 </div>
+        
 
                 <%-- form untuk buy atau cancel --%>
                 <div class="right">
@@ -148,8 +168,6 @@
 
                             <div style="font-weight: bold; font-size: 36px;">Total Price(s)</div>
                             <div class="userPay">Rp. <%= totalPrice %> </div>
-                            <%-- nanti di-if aja untuk tiap buttonnya, cek value dari parameternya --%>
-                            <input type="hidden" name="src" value="purchaseConfirmation">
                             <div>
                                 <button type="submit" id="payBtn" name="pay" value="true" class="buttons">Pay</button>
                             </div>

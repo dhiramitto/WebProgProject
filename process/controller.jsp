@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.text.SimpleDateFormat" errorPage="" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Date" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Vector" errorPage="" %>
 <%@ include file = "connect.jsp" %>
+<%@ include file = "model.jsp" %>
 
 <%!
     public boolean isEmailValid(String email){
@@ -471,9 +473,6 @@
         }
         else if(fromPage.equals("insertTicket")){
             try{
-                %>
-                    <%= fromPage %>
-                <%
                 String airline = request.getParameter("insertAirline");
                 String from = request.getParameter("insertFrom");
                 String to = request.getParameter("insertTo");
@@ -544,33 +543,91 @@
                 System.out.println(e);
             }
         }
-        else if(fromPage.equals("homePage")){
+        else if(fromPage.equals("insertTransaction")){
+            String pay = request.getParameter("pay");
+            String cancel = request.getParameter("cancel");
+
             /*
-            src=homePage
-            memberId=1 kalo 0, guest. kalo ga 0, dia member
-            homeFrom=Bandung
-            homeDate=2019-05-26
-            homeTo=Bandung
-            homePassengerQuantity=1
-            classHome=Economy
+                ticketid=2
+                qty=2
+                userid=1
+                detailName1=Aldo
+                detailNationality1=Indonesian
+                detailName2=Andy
+                detailNationality2=Indonesian
             */
+
+            if(cancel != null){
+                if(cancel.equals("true")) response.sendRedirect("../homePage.jsp");
+            }
+
+            if(pay!=null){
                 try{
+                    String ticketIdParam = request.getParameter("ticketid");
+                    String qtyParam = request.getParameter("qty");
+                    String useridParam = request.getParameter("userid");
+                    String cabinClass = request.getParameter("cabinClass");
+
+                    int ticket_id = Integer.parseInt(ticketIdParam);
+                    int qty = Integer.parseInt(qtyParam);
+                    int user_id = Integer.parseInt(useridParam);
+
+                    Vector<PurchaseConfirmation> vectorNameNationality = new Vector<PurchaseConfirmation>();
+                    String nameParam = "", nationalityParam = "", titleParam = "";
+                    for(int i=0; i<qty; i++){
+                        titleParam = request.getParameter("detailTitle"+(i+1));
+                        nameParam = request.getParameter("detailName"+(i+1));
+                        nationalityParam = request.getParameter("detailNationality"+(i+1));
+                        vectorNameNationality.add(new PurchaseConfirmation(titleParam, nameParam, nationalityParam));
+                    }
+
                     Date todayDate = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String today = formatter.format(todayDate);
 
-                    int memberId = Integer.parseInt(request.getParameter("memberId"));
-                    String from = request.getParameter("homeFrom");
-                    String to = request.getParameter("homeTo");
-                    String departDate = request.getParameter("homeDate");
-                    int qty = Integer.parseInt(request.getParameter("homePassengerQuantity"));
-                    String cabinClass = request.getParameter("homeClass");
+                    String insertHeader = "INSERT INTO transaction_header (ticket_id, buyer, status, cabin_class, order_date) VALUES (?,?,?,?,?)";
+                    PreparedStatement stInsertHeader = con.prepareStatement(insertHeader);
+
+                    stInsertHeader.setInt(1, ticket_id);
+                    stInsertHeader.setInt(2, user_id);
+                    stInsertHeader.setString(3, "Pending");
+                    stInsertHeader.setString(4, cabinClass);
+                    stInsertHeader.setString(5, today);
+
+                    stInsertHeader.executeUpdate();
+                    
+
+                    //untuk insert id transaction_header ke dlm transaction_detail
+                    String query_totalData = "SELECT COUNT(*) AS 'total_data' FROM ticket";
+                    
+                    int totalHeader = 0;
+                    String totalHeaderQuery = "SELECT COUNT(*) AS 'total_header' FROM transaction_header";
+                    Statement stTotalHeader = con.createStatement();
+                    ResultSet rsTotalHeader = stTotalHeader.executeQuery(totalHeaderQuery);
+
+                    if(rsTotalHeader.next()) totalHeader = Integer.parseInt((String) rsTotalHeader.getString("total_header"));
+                    else totalHeader = 0;
+
+                    
+                    for(int i=0; i<qty; i++){
+                        String insertDetail = "INSERT INTO transaction_detail (transaction_header_id, title, name, nationality) VALUES (?,?,?,?)";
+                        PreparedStatement stInsertDetail = con.prepareStatement(insertDetail);
+
+                        stInsertDetail.setInt(1, totalHeader);
+                        stInsertDetail.setString(2, vectorNameNationality.get(i).getTitle());
+                        stInsertDetail.setString(3, vectorNameNationality.get(i).getName());
+                        stInsertDetail.setString(4, vectorNameNationality.get(i).getNationality());
+
+                        stInsertDetail.executeUpdate();
+                    }
+
+                    response.sendRedirect("../homePage.jsp");
+                    
                 }
                 catch(Exception e){
                     System.out.println(e);
                 }
+            }
         }
-    }
-    
-        
+    }      
 %>

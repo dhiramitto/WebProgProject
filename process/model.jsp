@@ -205,12 +205,18 @@
     }
 
     class PurchaseConfirmation{
+        private String title;
         private String name;
         private String nationality;
 
-        public PurchaseConfirmation(String name, String nationality){
+        public PurchaseConfirmation(String title, String name, String nationality){
+            this.title = title;
             this.name = name;
             this.nationality = nationality;
+        }
+        
+        public String getTitle(){
+            return title;
         }
 
         public String getName(){

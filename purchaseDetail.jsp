@@ -14,6 +14,7 @@
         String ticketId = request.getParameter("id");
         String qtyParam = request.getParameter("qty");
         String price = request.getParameter("price");
+        String cabinClass = request.getParameter("cabinClass");
         int qty = 0;
         
         if(qtyParam != null){
@@ -57,6 +58,7 @@
             <input type="hidden" name="id" value="<%= ticketId %>">
             <input type="hidden" name="qty" value="<%= qty %>">
             <input type="hidden" name="price" value="<%= price %>">
+            <input type="hidden" name="cabinClass" value="<%= cabinClass %>">
             <%-- loop here --%>
             <div class="formPurchase">
             <%

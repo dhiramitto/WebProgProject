@@ -148,6 +148,7 @@
                                             <input type="hidden" name="id" value="<%= vectorResult.get(i).getTicketId() %>">
                                             <input type="hidden" name="qty" value=<%= qty %>>
                                             <input type="hidden" name="price" value=<%= vectorResult.get(i).getPrice() %>>
+                                            <input type="hidden" name="cabinClass" value="<%= cabinClass %>">
                                             <button id="purchaseBtn">+</button>
                                             </form>
                                             <%
