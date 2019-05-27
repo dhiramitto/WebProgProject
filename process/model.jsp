@@ -168,6 +168,42 @@
         }
     }
 
+    class TransactionDetail{
+        private int id;
+        private int headerId;
+        private String title;
+        private String name;
+        private String nationality;
+
+        public TransactionDetail(int id, int headerId, String title, String name, String nationality){
+            this.id = id;
+            this.headerId = headerId;
+            this.title = title;
+            this.name = name;
+            this.nationality = nationality;
+        }
+
+        public int getId(){
+            return id;
+        }
+
+        public int getHeaderId(){
+            return headerId;
+        }
+
+        public String getTitle(){
+            return title;
+        }
+
+        public String getName(){
+            return name;
+        }
+
+        public String getNationality(){
+            return nationality;
+        }
+    }
+
     class SearchResult{
         private int ticketId;
         private String airline;

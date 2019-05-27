@@ -584,7 +584,7 @@
                     Date todayDate = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String today = formatter.format(todayDate);
-
+                    
                     String insertHeader = "INSERT INTO transaction_header (ticket_id, buyer, status, cabin_class, order_date) VALUES (?,?,?,?,?)";
                     PreparedStatement stInsertHeader = con.prepareStatement(insertHeader);
 
@@ -620,6 +620,31 @@
 
                         stInsertDetail.executeUpdate();
                     }
+                    
+
+                    //update available seat di table ticket
+                    int totalSeat = -1;
+                    
+                    String getSeatQuery = "SELECT seat FROM ticket WHERE ticket_id="+ticket_id;
+                    Statement stGetSeat = con.createStatement();
+                    ResultSet rsGetSeat = stGetSeat.executeQuery(getSeatQuery);
+                    
+
+                    if(rsGetSeat.next()){
+                        totalSeat = rsGetSeat.getInt("seat");
+                        out.println(totalSeat);
+                    }
+
+
+                    if(totalSeat > -1){
+                        totalSeat -= qty;
+                        if(totalSeat < 0) totalSeat = 0;
+
+                        String setSeatQuery = "UPDATE ticket SET seat = "+totalSeat+" WHERE ticket_id="+ticket_id;
+                        Statement stSetSeat = con.createStatement();
+                        stSetSeat.executeUpdate(setSeatQuery);
+                        
+                    }
 
                     response.sendRedirect("../homePage.jsp");
                     
@@ -627,6 +652,67 @@
                 catch(Exception e){
                     System.out.println(e);
                 }
+            }
+        }
+        else if(fromPage.equals("transactionList")){
+            try{
+                /*
+                    btn=delete&id=5
+                */
+                int headerId = Integer.parseInt(request.getParameter("id"));
+
+                //delete detailnya dulu, bisa jalan, tp comment dulu
+                
+                String deleteDetail = "DELETE FROM transaction_detail WHERE transaction_header_id="+headerId;
+                st.executeUpdate(deleteDetail);
+                
+
+                //delete yg di header
+                String deleteHeader = "DELETE FROM transaction_header WHERE transaction_header_id="+headerId;
+                Statement stDeleteHeader = con.createStatement();
+                stDeleteHeader.executeUpdate(deleteHeader);
+
+                response.sendRedirect("../adminTransactionList.jsp");
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+        }
+        else if(fromPage.equals("transactionDetail")){
+            try{
+                /*
+                    btnType=approve
+                    headerId=1
+                */
+
+                String btnType = request.getParameter("btnType");
+                
+                if(btnType != null){
+                    if(btnType.equals("approve")){
+                        int headerId = Integer.parseInt(request.getParameter("headerId"));
+                        
+                        String query_update = "UPDATE transaction_header SET status = 'Approved' WHERE transaction_header_id="+headerId;
+                        st.executeUpdate(query_update);
+                        response.sendRedirect("../adminTransactionList.jsp");
+                    }
+                    else if(btnType.equals("reject")){
+                        int headerId = Integer.parseInt(request.getParameter("headerId"));
+
+                        String query_update = "UPDATE transaction_header SET status = 'Rejected' WHERE transaction_header_id="+headerId;
+                        st.executeUpdate(query_update);
+                        response.sendRedirect("../adminTransactionList.jsp");
+                    }
+                    else if(btnType.equals("delete")){
+                        int detailId = Integer.parseInt(request.getParameter("detailId"));
+
+                        String delete = "DELETE FROM transaction_detail WHERE transaction_detail_id="+detailId;
+                        st.executeUpdate(delete);
+                        response.sendRedirect("../adminTransactionList.jsp");
+                    }
+                }
+            }
+            catch(Exception e){
+                System.out.println(e);
             }
         }
     }      

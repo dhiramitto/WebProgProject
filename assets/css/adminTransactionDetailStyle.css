@@ -101,6 +101,10 @@ html body {
           box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
 }
 
+.contentTable .headerTable {
+  margin-bottom: 10px;
+}
+
 .contentTable table {
   width: 100%;
   border-collapse: collapse;
@@ -133,6 +137,7 @@ html body {
 }
 
 .contentTable .buttonContainer .buttons button {
+  cursor: pointer;
   border: 1px solid;
   width: 75px;
   background-color: #002d58;
@@ -142,6 +147,17 @@ html body {
   font-size: 16px;
   border: 0;
   padding: 10px 5px;
+}
+
+#deleteBtn {
+  cursor: pointer;
+  width: 75px;
+  color: white;
+  border-radius: 5px;
+  font-family: Calibri;
+  font-size: 16px;
+  border: 0;
+  background-color: #dc3545;
 }
 
 .footer {

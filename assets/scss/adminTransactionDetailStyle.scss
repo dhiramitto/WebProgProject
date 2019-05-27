@@ -85,6 +85,10 @@ html{
     border-radius: 5px;
     box-shadow: 2.5px 2.5px 8px 2.5px #b5b5b5;
 
+    .headerTable{
+        margin-bottom: 10px;
+    }
+
     table{
         width: 100%;
         border-collapse: collapse;
@@ -109,6 +113,7 @@ html{
             justify-content: end;
 
             button{
+                cursor: pointer;
                 border: 1px solid;
                 width: 75px;
                 background-color: $main-color;
@@ -121,6 +126,17 @@ html{
             }
         }
     }
+}
+
+#deleteBtn{
+    cursor: pointer;
+    width: 75px;
+    color: white;
+    border-radius: 5px;
+    font-family: Calibri;
+    font-size: 16px;
+    border: 0;
+    background-color: $red-button;
 }
 
 

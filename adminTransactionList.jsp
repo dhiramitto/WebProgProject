@@ -58,7 +58,7 @@
 
                         //cari buyer name dari id user
                         String buyerName = "";
-                        String query_search_buyer = "SELECT * FROM user WHERE user_id='"+vectorTransactionHeader.get(i).getId()+"'";
+                        String query_search_buyer = "SELECT * FROM user WHERE user_id='"+vectorTransactionHeader.get(i).getBuyer()+"'";
                         Statement searchBuyer = con.createStatement();
                         ResultSet buyerNameRs = searchBuyer.executeQuery(query_search_buyer);
 
@@ -71,8 +71,10 @@
                                 <td><%= vectorTransactionHeader.get(i).getOrderDate() %></td>
                                 <td><%= buyerName %></td>
                                 <td><%= vectorTransactionHeader.get(i).getStatus() %></td>
-                                <td>
-                                    buttons
+                                <td width=300px>
+                                    <a href="adminTransactionDetail.jsp?btn=view&id=<%= vectorTransactionHeader.get(i).getId() %>&invoice=<%= invoiceNumber %>&status=<%= vectorTransactionHeader.get(i).getStatus() %>"><button class="modifyButtons" id="viewBtn">View</button></a>
+                                    <a href="adminTransactionDetail.jsp?btn=edit&id=<%= vectorTransactionHeader.get(i).getId() %>&invoice=<%= invoiceNumber %>&status=<%= vectorTransactionHeader.get(i).getStatus() %>"><button class="modifyButtons" id="editBtn">Edit</button></a>
+                                    <a href="process/controller.jsp?src=transactionList&btn=delete&id=<%= vectorTransactionHeader.get(i).getId() %>"><button class="modifyButtons" id="deleteBtn">Delete</button></a>
                                 </td>
                             </tr>
                         <%
