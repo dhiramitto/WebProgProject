@@ -171,8 +171,9 @@
                                 response.sendRedirect("../homePage.jsp");
                             }
                         }
-                        //cookie belakangan urusnya
-                        /*
+                        
+                        
+                        //kalo remember me dicentang
                         else if(rememberMe.equals("on")){
                             Cookie newCookie = new Cookie("email", email);
                             newCookie.setMaxAge(900);
@@ -186,9 +187,6 @@
                                 response.sendRedirect("../homePage.jsp");
                             }
                         }
-                        */
-                                              
-                        
                     }
                     else{
                         response.sendRedirect("../signIn.jsp?err=3");
