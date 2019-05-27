@@ -16,6 +16,7 @@
 
 <%
     String fromPage = request.getParameter("src");
+    String pg = request.getParameter("page");
 
     /*
     src=homePage
@@ -41,20 +42,17 @@
     boolean isLoggedIn = true;
     boolean found = true;
     Vector<SearchResult> vectorResult = new Vector<SearchResult>();
+    int curr_page = 0;
+
 
     if(fromPage!=null){
         try{
-            String pg = request.getParameter("page");
-            
-            int curr_page = 1;
-            
-            start_data = data_per_page * (curr_page-1);
 
-            if (pg == "" || pg == null) curr_page = 1;
+            if(pg == null || pg.equals("")) curr_page = 1;
             else curr_page = Integer.parseInt(pg);
-            
 
-            //Vector<SearchResult> vectorResult = new Vector<SearchResult>();
+            start_data = data_per_page * (curr_page-1);
+            
 
             Date todayDate = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,8 +80,6 @@
                 }
             }
 
-
-
         }
         catch(Exception e){
             out.println(e);
@@ -93,7 +89,6 @@
 %>
 
 <body>
-
     <div class="header">
         <div class="home">
             <a href="homePage.jsp">Home</a>
@@ -119,13 +114,25 @@
     <div class="content">
         <%
             try{
-                String query_totalData = "SELECT COUNT(*) AS 'total_data' FROM ticket";
+                /*
+                out.println(memberId);
+                out.println(from);
+                out.println(to);
+                out.println(departDate);
+                out.println(qty);
+                out.println(cabinClass);
+                */
+
+                String query_totalData = "SELECT COUNT(*) AS 'total_data', t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' AND t.seat >= "+ qty +" AND t.depart_date LIKE '"+ departDate +"'";
                 Statement stTotalData = con.createStatement();
                 ResultSet rsTotalData = stTotalData.executeQuery(query_totalData);
+                
                 if(rsTotalData.next()){
-                    String count = (String) rsTotalData.getString("total_data");
-                    total_data = Integer.parseInt(count);
+                    //String count = (String) rsTotalData.getString("total_data");
+                    //total_data = Integer.parseInt(count);
+                    total_data = rsTotalData.getInt("total_data");
                 }
+
 
                 if(!found) out.println("Ticket not found");
                 else{
@@ -176,10 +183,26 @@
     </div>
     <div class="pagination">
         <%
+            /*
+                memberId = Integer.parseInt(request.getParameter("memberId"));
+                from = request.getParameter("homeFrom");
+                to = request.getParameter("homeTo");
+                departDate = request.getParameter("homeDate");
+                qty = Integer.parseInt(request.getParameter("homePassengerQuantity"));
+                cabinClass = request.getParameter("homeClass");
+
+                parameternya:
+                memberId=1 kalo 0, guest. kalo ga 0, dia member
+                homeFrom=Bandung
+                homeDate=2019-05-26
+                homeTo=Bandung
+                homePassengerQuantity=1
+                classHome=Economy
+            */
             
-            for(int i = 0; i < total_data / data_per_page; i++){
+            for(int i = 0; i <= total_data / data_per_page; i++){
             %> 
-                <a href="search.jsp?page=<%=i+1%>"><%= i+1%></a>
+                <a href="search.jsp?src=homePage&page=<%=i+1%>&memberId=<%= memberId %>&homeFrom=<%= from %>&homeDate=<%= departDate %>&homeTo=<%= to %>&homePassengerQuantity=<%= qty %>&homeClass=<%= cabinClass %>"><%= i+1%></a>
             <%
             }
         %>
