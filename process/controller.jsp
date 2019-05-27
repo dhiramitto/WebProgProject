@@ -805,11 +805,25 @@
                         response.sendRedirect("../adminTransactionList.jsp");
                     }
                     else if(btnType.equals("delete")){
+                        /*
+                            btn=edit
+                            id=9
+                            invoice=INV/20190527/9
+                            status=Canceled
+
+                            String btnType = request.getParameter("btn");
+                            int header_id = Integer.parseInt(request.getParameter("id"));
+                            String invoiceNumber = request.getParameter("invoice");
+                            String status = request.getParameter("status");
+                        */
                         int detailId = Integer.parseInt(request.getParameter("detailId"));
+                        int header_id = Integer.parseInt(request.getParameter("id"));
+                        String invoiceNumber = request.getParameter("invoice");
+                        String status = request.getParameter("status");
 
                         String delete = "DELETE FROM transaction_detail WHERE transaction_detail_id="+detailId;
                         st.executeUpdate(delete);
-                        response.sendRedirect("../adminTransactionList.jsp");
+                        response.sendRedirect("../adminTransactionDetail.jsp?btn=edit&id="+ header_id +"&invoice= "+invoiceNumber+" &status="+status+"");
                     }
                 }
             }

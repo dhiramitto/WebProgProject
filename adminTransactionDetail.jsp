@@ -112,7 +112,7 @@
                                                 <td><%= vectorDetail.get(i).getTitle() %></td>
                                                 <td><%= vectorDetail.get(i).getName() %></td>
                                                 <td><%= vectorDetail.get(i).getNationality() %></td>
-                                                <td><a href="process/controller.jsp?src=transactionDetail&btnType=delete&detailId=<%= vectorDetail.get(i).getId() %>"><button id="deleteBtn">Delete</button></a></td>
+                                                <td><a href="process/controller.jsp?src=transactionDetail&btnType=delete&detailId=<%= vectorDetail.get(i).getId() %>&btn=edit&id=<%= header_id %>&invoice=<%= invoiceNumber %>&status=<%= status %>"><button id="deleteBtn">Delete</button></a></td>
                                             </tr>
                                         <%
                                     }
