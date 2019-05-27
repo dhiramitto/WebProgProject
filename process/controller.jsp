@@ -558,7 +558,72 @@
             */
 
             if(cancel != null){
-                if(cancel.equals("true")) response.sendRedirect("../homePage.jsp");
+                if(cancel.equals("true")){
+                    try{
+                        String ticketIdParam = request.getParameter("ticketid");
+                        String qtyParam = request.getParameter("qty");
+                        String useridParam = request.getParameter("userid");
+                        String cabinClass = request.getParameter("cabinClass");
+
+                        int ticket_id = Integer.parseInt(ticketIdParam);
+                        int qty = Integer.parseInt(qtyParam);
+                        int user_id = Integer.parseInt(useridParam);
+
+                        Vector<PurchaseConfirmation> vectorNameNationality = new Vector<PurchaseConfirmation>();
+                        String nameParam = "", nationalityParam = "", titleParam = "";
+                        for(int i=0; i<qty; i++){
+                            titleParam = request.getParameter("detailTitle"+(i+1));
+                            nameParam = request.getParameter("detailName"+(i+1));
+                            nationalityParam = request.getParameter("detailNationality"+(i+1));
+                            vectorNameNationality.add(new PurchaseConfirmation(titleParam, nameParam, nationalityParam));
+                        }
+
+                        Date todayDate = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        String today = formatter.format(todayDate);
+                        
+                        String insertHeader = "INSERT INTO transaction_header (ticket_id, buyer, status, cabin_class, order_date) VALUES (?,?,?,?,?)";
+                        PreparedStatement stInsertHeader = con.prepareStatement(insertHeader);
+
+                        stInsertHeader.setInt(1, ticket_id);
+                        stInsertHeader.setInt(2, user_id);
+                        stInsertHeader.setString(3, "Canceled");
+                        stInsertHeader.setString(4, cabinClass);
+                        stInsertHeader.setString(5, today);
+
+                        stInsertHeader.executeUpdate();
+                        
+
+                        //untuk insert id transaction_header ke dlm transaction_detail
+                        String query_totalData = "SELECT COUNT(*) AS 'total_data' FROM ticket";
+                        
+                        int totalHeader = 0;
+                        String totalHeaderQuery = "SELECT COUNT(*) AS 'total_header' FROM transaction_header";
+                        Statement stTotalHeader = con.createStatement();
+                        ResultSet rsTotalHeader = stTotalHeader.executeQuery(totalHeaderQuery);
+
+                        if(rsTotalHeader.next()) totalHeader = Integer.parseInt((String) rsTotalHeader.getString("total_header"));
+                        else totalHeader = 0;
+
+                        
+                        for(int i=0; i<qty; i++){
+                            String insertDetail = "INSERT INTO transaction_detail (transaction_header_id, title, name, nationality) VALUES (?,?,?,?)";
+                            PreparedStatement stInsertDetail = con.prepareStatement(insertDetail);
+
+                            stInsertDetail.setInt(1, totalHeader);
+                            stInsertDetail.setString(2, vectorNameNationality.get(i).getTitle());
+                            stInsertDetail.setString(3, vectorNameNationality.get(i).getName());
+                            stInsertDetail.setString(4, vectorNameNationality.get(i).getNationality());
+
+                            stInsertDetail.executeUpdate();
+                        }
+                        
+                        response.sendRedirect("../homePage.jsp");
+                    }
+                    catch(Exception e){
+                        System.out.println(e);
+                    }
+                }
             }
 
             if(pay!=null){
@@ -585,6 +650,8 @@
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     String today = formatter.format(todayDate);
                     
+                    //comment dulu biar ga redundant
+                    
                     String insertHeader = "INSERT INTO transaction_header (ticket_id, buyer, status, cabin_class, order_date) VALUES (?,?,?,?,?)";
                     PreparedStatement stInsertHeader = con.prepareStatement(insertHeader);
 
@@ -596,17 +663,19 @@
 
                     stInsertHeader.executeUpdate();
                     
+                    
 
                     //untuk insert id transaction_header ke dlm transaction_detail
-                    String query_totalData = "SELECT COUNT(*) AS 'total_data' FROM ticket";
-                    
+                    //ambil max-nya
                     int totalHeader = 0;
-                    String totalHeaderQuery = "SELECT COUNT(*) AS 'total_header' FROM transaction_header";
+                    String totalHeaderQuery = "SELECT MAX(transaction_header_id) AS 'max_header_id' FROM transaction_header";
                     Statement stTotalHeader = con.createStatement();
                     ResultSet rsTotalHeader = stTotalHeader.executeQuery(totalHeaderQuery);
+                    out.println(totalHeader);
 
-                    if(rsTotalHeader.next()) totalHeader = Integer.parseInt((String) rsTotalHeader.getString("total_header"));
+                    if(rsTotalHeader.next()) totalHeader = Integer.parseInt((String) rsTotalHeader.getString("max_header_id"));
                     else totalHeader = 0;
+                    out.println(totalHeader);
 
                     
                     for(int i=0; i<qty; i++){
@@ -632,7 +701,6 @@
 
                     if(rsGetSeat.next()){
                         totalSeat = rsGetSeat.getInt("seat");
-                        out.println(totalSeat);
                     }
 
 
@@ -698,8 +766,48 @@
                     else if(btnType.equals("reject")){
                         int headerId = Integer.parseInt(request.getParameter("headerId"));
 
+                        //dapetin ticket_id dari headerId di table transaction_header
+                        int ticket_id=0;
+                        String getTicketId = "SELECT ticket_id FROM transaction_header WHERE transaction_header_id="+headerId;
+                        Statement stGetTicketId = con.createStatement();
+                        ResultSet rsTicketId = stGetTicketId.executeQuery(getTicketId);
+
+                        if(rsTicketId.next()){
+                            ticket_id = rsTicketId.getInt("ticket_id");
+                        }
+                        
+                        //update lagi seat nya
+                        int qty=0;
+                        String getQty = "SELECT COUNT(*) AS 'qty' FROM transaction_detail WHERE transaction_header_id="+headerId;
+                        Statement stGetQty = con.createStatement();
+                        ResultSet rsQty = stGetQty.executeQuery(getQty);
+
+                        if(rsQty.next()){
+                            qty = rsQty.getInt("qty");
+                        }
+
+                        int totalSeat = -1;
+                        String getSeatQuery = "SELECT seat FROM ticket WHERE ticket_id="+ticket_id;
+                        Statement stGetSeat = con.createStatement();
+                        ResultSet rsGetSeat = stGetSeat.executeQuery(getSeatQuery);
+                        
+                        if(rsGetSeat.next()) totalSeat = rsGetSeat.getInt("seat");
+                        totalSeat += qty;
+                        
+
+                        
+                        String setSeatQuery = "UPDATE ticket SET seat = "+totalSeat+" WHERE ticket_id="+ticket_id;
+                        Statement stSetSeat = con.createStatement();
+                        stSetSeat.executeUpdate(setSeatQuery);
+                        
+
+                        if(rsGetSeat.next()){
+                            totalSeat = rsGetSeat.getInt("seat");
+                        }
+
                         String query_update = "UPDATE transaction_header SET status = 'Rejected' WHERE transaction_header_id="+headerId;
                         st.executeUpdate(query_update);
+                        
                         response.sendRedirect("../adminTransactionList.jsp");
                     }
                     else if(btnType.equals("delete")){

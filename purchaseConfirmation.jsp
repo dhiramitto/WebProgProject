@@ -160,23 +160,21 @@
 
                 <%-- form untuk buy atau cancel --%>
                 <div class="right">
-                    <form action="purchaseConfirmation.jsp" method="GET">
-                        <div class="userDetail">
-                            <h2>Buyer Information</h2>
-                            <div style="font-weight: bold;">Name</div>
-                            <div class="userName"> <%= buyer %> </div>
+                    <div class="userDetail">
+                        <h2>Buyer Information</h2>
+                        <div style="font-weight: bold;">Name</div>
+                        <div class="userName"> <%= buyer %> </div>
 
-                            <div style="font-weight: bold; font-size: 36px;">Total Price(s)</div>
-                            <div class="userPay">Rp. <%= totalPrice %> </div>
-                            <div>
-                                <button type="submit" id="payBtn" name="pay" value="true" class="buttons">Pay</button>
-                            </div>
-                            
-                            <div>
-                                <button type="submit" id="cancelBtn" name="cancel" value="true" class="buttons">Cancel</button>
-                            </div>
+                        <div style="font-weight: bold; font-size: 36px;">Total Price(s)</div>
+                        <div class="userPay">Rp. <%= totalPrice %> </div>
+                        <div>
+                            <button type="submit" id="payBtn" name="pay" value="true" class="buttons">Pay</button>
                         </div>
-                    </form>
+                            
+                        <div>
+                            <button type="submit" id="cancelBtn" name="cancel" value="true" class="buttons">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
