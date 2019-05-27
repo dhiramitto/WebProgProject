@@ -114,22 +114,11 @@
     <div class="content">
         <%
             try{
-                /*
-                out.println(memberId);
-                out.println(from);
-                out.println(to);
-                out.println(departDate);
-                out.println(qty);
-                out.println(cabinClass);
-                */
-
                 String query_totalData = "SELECT COUNT(*) AS 'total_data', t.ticket_id, a.airline_name, cf.city_name AS 'from', ct.city_name AS 'to', t.depart_date, t.price_economy, t.price_business, t.seat  FROM ticket AS t INNER JOIN airline AS a ON t.airline_id=a.airline_id INNER JOIN city AS cf ON t.from_city_id=cf.city_id INNER JOIN city AS ct ON t.to_city_id=ct.city_id WHERE cf.city_name='"+ from +"' AND ct.city_name='"+ to +"' AND t.seat >= "+ qty +" AND t.depart_date LIKE '"+ departDate +"'";
                 Statement stTotalData = con.createStatement();
                 ResultSet rsTotalData = stTotalData.executeQuery(query_totalData);
                 
                 if(rsTotalData.next()){
-                    //String count = (String) rsTotalData.getString("total_data");
-                    //total_data = Integer.parseInt(count);
                     total_data = rsTotalData.getInt("total_data");
                 }
 
@@ -197,7 +186,7 @@
                 homeDate=2019-05-26
                 homeTo=Bandung
                 homePassengerQuantity=1
-                classHome=Economy
+                homeClass=Economy
             */
             
             for(int i = 0; i <= total_data / data_per_page; i++){
