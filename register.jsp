@@ -10,7 +10,7 @@
 
     <div class="content">
         <div class="contentHeader">
-            <div id="contentHeaderText">Sign in to our application</div>
+            <div id="contentHeaderText">Sign up to our application</div>
         </div>
 
         <form action="process/controller.jsp?src=register" method="POST">
